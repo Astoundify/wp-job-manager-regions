@@ -1,12 +1,12 @@
 <?php
 /**
- * Plugin Name: WP Job Manager Predefined Locations
+ * Plugin Name: WP Job Manager Predefined Regions
  * Plugin URI:  https://github.com/astoundify
- * Description: Set predefined locations for WP Job Manager
+ * Description: Create predefined regions that job submissions can associate themselves with.
  * Author:      Astoundify
  * Author URI:  http://astoundify.com
  * Version:     0.1
- * Text Domain: ajml
+ * Text Domain: ajmr
  */
 
 // Exit if accessed directly
@@ -15,28 +15,25 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * Main Crowd Funding Class
  *
- * @since Appthemer CrowdFunding 0.1-alpha
+ * @since 
  */
-final class Astoundify_Job_Manager_Locations {
+final class Astoundify_Job_Manager_Regions {
 
 	/**
-	 * @var crowdfunding The one true AT_CrowdFunding
+	 * @var 
 	 */
 	private static $instance;
 
 	/**
-	 * Main Crowd Funding Instance
+	 * 
 	 *
-	 * Ensures that only one instance of Crowd Funding exists in memory at any one
-	 * time. Also prevents needing to define globals all over the place.
+	 * @since 
 	 *
-	 * @since Appthemer CrowdFunding 0.1-alpha
-	 *
-	 * @return The one true Crowd Funding
+	 * @return 
 	 */
 	public static function instance() {
 		if ( ! isset ( self::$instance ) ) {
-			self::$instance = new Astoundify_Job_Manager_Locations;
+			self::$instance = new Astoundify_Job_Manager_Regions;
 			self::$instance->setup_globals();
 			self::$instance->includes();
 			self::$instance->setup_actions();
@@ -64,22 +61,22 @@ final class Astoundify_Job_Manager_Locations {
 		/** Paths *************************************************************/
 
 		$this->file         = __FILE__;
-		$this->basename     = apply_filters( 'ajml_plugin_basenname', plugin_basename( $this->file ) );
-		$this->plugin_dir   = apply_filters( 'ajml_plugin_dir_path',  plugin_dir_path( $this->file ) );
-		$this->plugin_url   = apply_filters( 'ajml_plugin_dir_url',   plugin_dir_url ( $this->file ) );
+		$this->basename     = apply_filters( 'ajmr_plugin_basenname', plugin_basename( $this->file ) );
+		$this->plugin_dir   = apply_filters( 'ajmr_plugin_dir_path',  plugin_dir_path( $this->file ) );
+		$this->plugin_url   = apply_filters( 'ajmr_plugin_dir_url',   plugin_dir_url ( $this->file ) );
 
 		// Includes
-		$this->includes_dir = apply_filters( 'ajml_includes_dir', trailingslashit( $this->plugin_dir . 'includes'  ) );
-		$this->includes_url = apply_filters( 'ajml_includes_url', trailingslashit( $this->plugin_url . 'includes'  ) );
+		$this->includes_dir = apply_filters( 'ajmr_includes_dir', trailingslashit( $this->plugin_dir . 'includes'  ) );
+		$this->includes_url = apply_filters( 'ajmr_includes_url', trailingslashit( $this->plugin_url . 'includes'  ) );
 
-		$this->template_dir = apply_filters( 'ajml_templates_dir', trailingslashit( $this->plugin_dir . 'templates'  ) );
+		$this->template_dir = apply_filters( 'ajmr_templates_dir', trailingslashit( $this->plugin_dir . 'templates'  ) );
 
 		// Languages
-		$this->lang_dir     = apply_filters( 'ajml_lang_dir',     trailingslashit( $this->plugin_dir . 'languages' ) );
+		$this->lang_dir     = apply_filters( 'ajmr_lang_dir',     trailingslashit( $this->plugin_dir . 'languages' ) );
 
 		/** Misc **************************************************************/
 
-		$this->domain       = 'ajml'; 
+		$this->domain       = 'ajmr'; 
 	}
 
 	/**
@@ -102,11 +99,8 @@ final class Astoundify_Job_Manager_Locations {
 	 */
 	private function setup_actions() {
 		add_action( 'init', array( $this, 'register_post_taxonomy' ) );
-		add_filter( 'wp_job_manager_locate_template', array( $this, 'locate_template' ), 10, 3 );
 		add_filter( 'submit_job_form_fields', array( $this, 'form_fields' ) );
 		add_action( 'wp_job_manager_update_job_data', array( $this, 'update_job_data' ), 10, 2 );
-
-		add_filter( 'the_job_location', array( $this, 'the_job_location' ), 10, 2 );
 
 		$this->load_textdomain();
 
@@ -128,12 +122,12 @@ final class Astoundify_Job_Manager_Locations {
 
 		$admin_capability = 'manage_job_listings';
 		
-		$singular  = __( 'Job Location', 'ajml' );
-		$plural    = __( 'Job Locations', 'ajml' );
+		$singular  = __( 'Job Region', 'ajmr' );
+		$plural    = __( 'Job Regions', 'ajmr' );
 
 		if ( current_theme_supports( 'job-manager-templates' ) ) {
 			$rewrite     = array(
-				'slug'         => _x( 'job-location', 'Job location slug - resave permalinks after changing this', 'ajml' ),
+				'slug'         => _x( 'job-region', 'Job region slug - resave permalinks after changing this', 'ajmr' ),
 				'with_front'   => false,
 				'hierarchical' => false
 			);
@@ -141,7 +135,7 @@ final class Astoundify_Job_Manager_Locations {
 			$rewrite = false;
 		}
 
-		register_taxonomy( 'job_listing_location',
+		register_taxonomy( 'job_listing_region',
 	        array( 'job_listing' ),
 	        array(
 	            'hierarchical' 			=> true,
@@ -150,14 +144,14 @@ final class Astoundify_Job_Manager_Locations {
 	            'labels' => array(
                     'name' 				=> $plural,
                     'singular_name' 	=> $singular,
-                    'search_items' 		=> sprintf( __( 'Search %s', 'ajml' ), $plural ),
-                    'all_items' 		=> sprintf( __( 'All %s', 'ajml' ), $plural ),
-                    'parent_item' 		=> sprintf( __( 'Parent %s', 'ajml' ), $singular ),
-                    'parent_item_colon' => sprintf( __( 'Parent %s:', 'ajml' ), $singular ),
-                    'edit_item' 		=> sprintf( __( 'Edit %s', 'ajml' ), $singular ),
-                    'update_item' 		=> sprintf( __( 'Update %s', 'ajml' ), $singular ),
-                    'add_new_item' 		=> sprintf( __( 'Add New %s', 'ajml' ), $singular ),
-                    'new_item_name' 	=> sprintf( __( 'New %s Name', 'ajml' ),  $singular )
+                    'search_items' 		=> sprintf( __( 'Search %s', 'ajmr' ), $plural ),
+                    'all_items' 		=> sprintf( __( 'All %s', 'ajmr' ), $plural ),
+                    'parent_item' 		=> sprintf( __( 'Parent %s', 'ajmr' ), $singular ),
+                    'parent_item_colon' => sprintf( __( 'Parent %s:', 'ajmr' ), $singular ),
+                    'edit_item' 		=> sprintf( __( 'Edit %s', 'ajmr' ), $singular ),
+                    'update_item' 		=> sprintf( __( 'Update %s', 'ajmr' ), $singular ),
+                    'add_new_item' 		=> sprintf( __( 'Add New %s', 'ajmr' ), $singular ),
+                    'new_item_name' 	=> sprintf( __( 'New %s Name', 'ajmr' ),  $singular )
             	),
 	            'show_ui' 				=> true,
 	            'query_var' 			=> true,
@@ -172,40 +166,24 @@ final class Astoundify_Job_Manager_Locations {
 	    );
 	}
 
-	function locate_template( $template, $template_name, $template_path ) {
-		if ( ! file_exists( $template ) )
-			$template = trailingslashit( $this->template_dir ) . $template_name;
-
-		return $template;
-	}
-
 	function form_fields( $fields ) {
-		$fields[ 'job' ][ 'job_location' ][ 'type' ] = 'ajml-select';
-		$fields[ 'job' ][ 'job_location' ][ 'options' ] = ajml_get_locations_simple();
+		$fields[ 'job' ][ 'job_region' ] = array(
+			'label'       => __( 'Job Region', 'job_manager' ),
+			'type'        => 'select',
+			'options'     => ajmr_get_regions_simple(),
+			'required'    => true,
+			'priority'    => 3
+		);
 
 		return $fields;
 	}
 
 	function update_job_data( $values, $job_id ) {
-		wp_set_object_terms( $job_id, array( $values['job']['job_location'] ), 'job_listing_location', false );
+		wp_set_object_terms( $job_id, array( $values[ 'job' ][ 'job_region' ] ), 'job_listing_region', false );
 	}
 
 	function data_fields( $fields ) {
-		die( 'wat' );
-		unset( $fields[ '_job_location' ] );
-
 		return $fields;
-	}
-
-	function the_job_location( $job_location, $post ) {
-		$terms    = wp_get_post_terms( $post->ID, 'job_listing_location' );
-
-		if ( empty( $terms ) )
-			return $job_location;
-
-		$location = $terms[0];
-
-		return $location->name;
 	}
 
 	/**
@@ -236,37 +214,27 @@ final class Astoundify_Job_Manager_Locations {
 }
 
 /**
- * The main function responsible for returning the one true Crowd Funding Instance
- * to functions everywhere.
- *
- * Use this function like you would a global variable, except without needing
- * to declare the global.
- *
- * Example: <?php $crowdfunding = crowdfunding(); ?>
- *
- * @since Appthemer CrowdFunding 0.1-alpha
- *
- * @return The one true Crowd Funding Instance
+ * 
  */
-function ajml() {
-	return Astoundify_Job_Manager_Locations::instance();
+function ajmr() {
+	return Astoundify_Job_Manager_Regions::instance();
 }
 
-ajml();
+ajmr();
 
-function ajml_get_locations() {
-	$locations = get_terms( 'job_listing_location', apply_filters( 'ajml_get_locations_args', array( 'hide_empty' => 0 ) ) );
+function ajmr_get_regions() {
+	$locations = get_terms( 'job_listing_region', apply_filters( 'ajmr_get_region_args', array( 'hide_empty' => 0 ) ) );
 
 	return $locations;
 }
 
-function ajml_get_locations_simple() {
-	$locations = ajml_get_locations();
+function ajmr_get_regions_simple() {
+	$locations = ajmr_get_regions();
 	$simple    = array();
 
 	foreach ( $locations as $location ) {
 		$simple[ $location->slug ] = $location->name;
 	}
 
-	return apply_filters( 'ajml_get_locations_simple', $simple );
+	return apply_filters( 'ajmr_get_regions_simple', $simple );
 }
