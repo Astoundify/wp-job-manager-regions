@@ -5,31 +5,22 @@
  * Description: Create predefined regions that job submissions can associate themselves with.
  * Author:      Astoundify
  * Author URI:  http://astoundify.com
- * Version:     0.1
+ * Version:     1.0
  * Text Domain: ajmr
  */
 
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-/**
- * Main Crowd Funding Class
- *
- * @since 
- */
-final class Astoundify_Job_Manager_Regions {
+class Astoundify_Job_Manager_Regions {
 
 	/**
-	 * @var 
+	 * @var $instance
 	 */
 	private static $instance;
 
 	/**
-	 * 
-	 *
-	 * @since 
-	 *
-	 * @return 
+	 * Make sure only one instance is only running.
 	 */
 	public static function instance() {
 		if ( ! isset ( self::$instance ) ) {
@@ -39,18 +30,21 @@ final class Astoundify_Job_Manager_Regions {
 		return self::$instance;
 	}
 
+	/**
+	 * Start things up.
+	 *
+	 * @since 1.0
+	 */
 	public function __construct() {
 		$this->setup_globals();
 		$this->setup_actions();
 	}
 
-	/** Private Methods *******************************************************/
-
 	/**
 	 * Set some smart defaults to class variables. Allow some of them to be
 	 * filtered to allow for early overriding.
 	 *
-	 * @since Appthemer CrowdFunding 0.1-alpha
+	 * @since 1.0
 	 *
 	 * @return void
 	 */
@@ -69,7 +63,7 @@ final class Astoundify_Job_Manager_Regions {
 	/**
 	 * Setup the default hooks and actions
 	 *
-	 * @since Appthemer CrowdFunding 0.1-alpha
+	 * @since 1.0
 	 *
 	 * @return void
 	 */
@@ -84,10 +78,9 @@ final class Astoundify_Job_Manager_Regions {
 	}
 
 	/**
-	 * register_post_types function.
+	 * Create the `job_listing_region` taxonomy.
 	 *
-	 * @access public
-	 * @return void
+	 * @since 1.0
 	 */
 	public function register_post_taxonomy() {
 		if ( ! post_type_exists( 'job_listing' ) )
@@ -140,6 +133,11 @@ final class Astoundify_Job_Manager_Regions {
 	    );
 	}
 
+	/**
+	 * Add the field to the submission form.
+	 *
+	 * @since 1.0
+	 */
 	function form_fields( $fields ) {
 		$fields[ 'job' ][ 'job_region' ] = array(
 			'label'       => __( 'Job Region', 'job_manager' ),
@@ -152,6 +150,11 @@ final class Astoundify_Job_Manager_Regions {
 		return $fields;
 	}
 
+	/**
+	 * When the form is submitted, update the data.
+	 *
+	 * @since 1.0
+	 */
 	function update_job_data( $job_id, $values ) {
 		$region = $values[ 'job' ][ 'job_region' ];
 		$term   = get_term_by( 'slug', $region, 'job_listing_region' );
@@ -159,6 +162,11 @@ final class Astoundify_Job_Manager_Regions {
 		wp_set_post_terms( $job_id, array( $term->term_id ), 'job_listing_region', false );
 	}
 
+	/**
+	 * On a singular job page, append the region to the location.
+	 *
+	 * @since 1.0
+	 */
 	function the_job_location( $job_location, $post ) {
 		if ( ! is_singular( 'job_listing' ) )
 			return $job_location;
@@ -179,7 +187,7 @@ final class Astoundify_Job_Manager_Regions {
 	/**
 	 * Loads the plugin language files
 	 *
-	 * @since 
+	 * @since 1.0
 	 */
 	public function load_textdomain() {
 		// Traditional WordPress plugin locale filter
@@ -203,18 +211,37 @@ final class Astoundify_Job_Manager_Regions {
 	}
 }
 
+/**
+ * Start things up.
+ *
+ * Use this function instead of a global.
+ *
+ * $ajmr = ajmr();
+ *
+ * @since 1.0
+ */
 function ajmr() {
 	return Astoundify_Job_Manager_Regions::instance();
 }
 
 ajmr();
 
+/**
+ * Get regions (terms) helper.
+ *
+ * @since 1.0
+ */
 function ajmr_get_regions() {
 	$locations = get_terms( 'job_listing_region', apply_filters( 'ajmr_get_region_args', array( 'hide_empty' => 0 ) ) );
 
 	return $locations;
 }
 
+/**
+ * Create a key => value pair of term ID and term name.
+ *
+ * @since 1.0
+ */
 function ajmr_get_regions_simple() {
 	$locations = ajmr_get_regions();
 	$simple    = array();

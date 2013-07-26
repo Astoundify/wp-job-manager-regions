@@ -26,6 +26,6 @@ Adds a "Job Region" taxonomy so the site administrator can control a set of pred
 
 == Changelog ==
 
-= 0.1: July 26, 2013 =
+= 1.0: July 26, 2013 =
 
-* First official alpha release!
+* First official release!
