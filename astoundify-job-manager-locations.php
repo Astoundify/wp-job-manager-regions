@@ -33,13 +33,15 @@ final class Astoundify_Job_Manager_Regions {
 	 */
 	public static function instance() {
 		if ( ! isset ( self::$instance ) ) {
-			self::$instance = new Astoundify_Job_Manager_Regions;
-			self::$instance->setup_globals();
-			self::$instance->includes();
-			self::$instance->setup_actions();
+			self::$instance = new self;
 		}
 
 		return self::$instance;
+	}
+
+	public function __construct() {
+		$this->setup_globals();
+		$this->setup_actions();
 	}
 
 	/** Private Methods *******************************************************/
@@ -53,41 +55,15 @@ final class Astoundify_Job_Manager_Regions {
 	 * @return void
 	 */
 	private function setup_globals() {
-		/** Versions **********************************************************/
-
-		$this->version    = '0.1';
-		$this->db_version = '1';
-
-		/** Paths *************************************************************/
-
 		$this->file         = __FILE__;
+		
 		$this->basename     = apply_filters( 'ajmr_plugin_basenname', plugin_basename( $this->file ) );
 		$this->plugin_dir   = apply_filters( 'ajmr_plugin_dir_path',  plugin_dir_path( $this->file ) );
 		$this->plugin_url   = apply_filters( 'ajmr_plugin_dir_url',   plugin_dir_url ( $this->file ) );
 
-		// Includes
-		$this->includes_dir = apply_filters( 'ajmr_includes_dir', trailingslashit( $this->plugin_dir . 'includes'  ) );
-		$this->includes_url = apply_filters( 'ajmr_includes_url', trailingslashit( $this->plugin_url . 'includes'  ) );
-
-		$this->template_dir = apply_filters( 'ajmr_templates_dir', trailingslashit( $this->plugin_dir . 'templates'  ) );
-
-		// Languages
 		$this->lang_dir     = apply_filters( 'ajmr_lang_dir',     trailingslashit( $this->plugin_dir . 'languages' ) );
 
-		/** Misc **************************************************************/
-
 		$this->domain       = 'ajmr'; 
-	}
-
-	/**
-	 * Include required files.
-	 *
-	 * @since Appthemer CrowdFunding 0.1-alpha
-	 *
-	 * @return void
-	 */
-	private function includes() {
-		
 	}
 
 	/**
@@ -100,14 +76,11 @@ final class Astoundify_Job_Manager_Regions {
 	private function setup_actions() {
 		add_action( 'init', array( $this, 'register_post_taxonomy' ) );
 		add_filter( 'submit_job_form_fields', array( $this, 'form_fields' ) );
-		add_action( 'wp_job_manager_update_job_data', array( $this, 'update_job_data' ), 10, 2 );
+		add_action( 'job_manager_update_job_data', array( $this, 'update_job_data' ), 10, 2 );
+
+		add_filter( 'the_job_location', array( $this, 'the_job_location' ), 10, 2 );
 
 		$this->load_textdomain();
-
-		if ( ! is_admin() )
-			return;
-
-		add_filter( 'wp_job_manager_job_listing_data_fields', array( $this, 'data_fields' ) );
 	}
 
 	/**
@@ -155,6 +128,7 @@ final class Astoundify_Job_Manager_Regions {
             	),
 	            'show_ui' 				=> true,
 	            'query_var' 			=> true,
+	            'has_archive'           => true,
 	            'capabilities'			=> array(
 	            	'manage_terms' 		=> $admin_capability,
 	            	'edit_terms' 		=> $admin_capability,
@@ -178,18 +152,34 @@ final class Astoundify_Job_Manager_Regions {
 		return $fields;
 	}
 
-	function update_job_data( $values, $job_id ) {
-		wp_set_object_terms( $job_id, array( $values[ 'job' ][ 'job_region' ] ), 'job_listing_region', false );
+	function update_job_data( $job_id, $values ) {
+		$region = $values[ 'job' ][ 'job_region' ];
+		$term   = get_term_by( 'slug', $region, 'job_listing_region' );
+
+		wp_set_post_terms( $job_id, array( $term->term_id ), 'job_listing_region', false );
 	}
 
-	function data_fields( $fields ) {
-		return $fields;
+	function the_job_location( $job_location, $post ) {
+		if ( ! is_singular( 'job_listing' ) )
+			return $job_location;
+
+		$terms = wp_get_post_terms( $post->ID, 'job_listing_region' );
+
+		if ( is_wp_error( $terms ) )
+			return $job_location;
+
+		$location = $terms[0];
+		$locname  = $location->name;
+
+		$job_location = sprintf( '%s &mdash; <a href="%s">%s</a>', $job_location, get_term_link( $location, 'job_listing_region' ), $locname );
+
+		return apply_filters( 'ajmr_job_location', $job_location, $location );
 	}
 
 	/**
 	 * Loads the plugin language files
 	 *
-	 * @since Appthemer CrowdFunding 0.1-alpha
+	 * @since 
 	 */
 	public function load_textdomain() {
 		// Traditional WordPress plugin locale filter
@@ -200,11 +190,11 @@ final class Astoundify_Job_Manager_Regions {
 		$mofile_local  = $this->lang_dir . $mofile;
 		$mofile_global = WP_LANG_DIR . '/' . $this->domain . '/' . $mofile;
 
-		// Look in global /wp-content/languages/atcf folder
+		// Look in global /wp-content/languages/ajmr folder
 		if ( file_exists( $mofile_global ) ) {
 			return load_textdomain( $this->domain, $mofile_global );
 
-		// Look in local /wp-content/plugins/appthemer-crowdfunding/languages/ folder
+		// Look in local /wp-content/plugins/ajmr/languages/ folder
 		} elseif ( file_exists( $mofile_local ) ) {
 			return load_textdomain( $this->domain, $mofile_local );
 		}
@@ -213,9 +203,6 @@ final class Astoundify_Job_Manager_Regions {
 	}
 }
 
-/**
- * 
- */
 function ajmr() {
 	return Astoundify_Job_Manager_Regions::instance();
 }
