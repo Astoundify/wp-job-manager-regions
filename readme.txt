@@ -26,6 +26,10 @@ Adds a "Job Region" taxonomy so the site administrator can control a set of pred
 
 == Changelog ==
 
+= 1.1: July 27, 2013 =
+
+* New: Simple regions list output.
+
 = 1.0: July 26, 2013 =
 
 * First official release!

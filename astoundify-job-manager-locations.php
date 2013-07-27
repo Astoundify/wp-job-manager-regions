@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: WP Job Manager Predefined Regions
- * Plugin URI:  https://github.com/astoundify
+ * Plugin Name: Predefined Regions for WP Job Manager
+ * Plugin URI:  https://github.com/astoundify/wp-job-manager-colors
  * Description: Create predefined regions that job submissions can associate themselves with.
  * Author:      Astoundify
  * Author URI:  http://astoundify.com
- * Version:     1.0
+ * Version:     1.1
  * Text Domain: ajmr
  */
 
@@ -252,3 +252,17 @@ function ajmr_get_regions_simple() {
 
 	return apply_filters( 'ajmr_get_regions_simple', $simple );
 }
+
+/**
+ * Custom widgets
+ *
+ * @since 1.1
+ */
+function ajmr_widgets_init() {
+	$ajmr = ajmr();
+
+	include_once( $ajmr->plugin_dir . '/widgets.php' );
+
+	register_widget( 'Astoundify_Job_Manager_Regions_Widget' );
+}
+add_action( 'after_setup_theme', 'ajmr_widgets_init', 11 );
