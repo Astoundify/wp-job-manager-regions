@@ -83,9 +83,6 @@ class Astoundify_Job_Manager_Regions {
 	 * @since 1.0
 	 */
 	public function register_post_taxonomy() {
-		if ( ! post_type_exists( 'job_listing' ) )
-			return;
-
 		$admin_capability = 'manage_job_listings';
 		
 		$singular  = __( 'Job Region', 'ajmr' );
