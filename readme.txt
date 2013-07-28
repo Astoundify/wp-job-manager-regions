@@ -7,7 +7,7 @@ Contributors: SpencerFinnell
 Tags: job, job listing, job region
 Requires at least: 3.5
 Tested up to: 3.5
-Stable Tag: 1.0
+Stable Tag: 1.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -25,6 +25,11 @@ Adds a "Job Region" taxonomy so the site administrator can control a set of pred
 == Frequently Asked Questions ==
 
 == Changelog ==
+
+= 1.2: July 28, 2013 =
+
+* Fix: Make sure the taxononmy is properly added.
+* Fix: Don't error if the plugin is activated, but no term is added via the backend
 
 = 1.1: July 27, 2013 =
 

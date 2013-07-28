@@ -5,7 +5,7 @@
  * Description: Create predefined regions that job submissions can associate themselves with.
  * Author:      Astoundify
  * Author URI:  http://astoundify.com
- * Version:     1.1
+ * Version:     1.2
  * Text Domain: ajmr
  */
 
