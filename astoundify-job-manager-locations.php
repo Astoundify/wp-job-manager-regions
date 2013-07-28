@@ -153,7 +153,11 @@ class Astoundify_Job_Manager_Regions {
 	 * @since 1.0
 	 */
 	function update_job_data( $job_id, $values ) {
-		$region = $values[ 'job' ][ 'job_region' ];
+		$region = isset ( $values[ 'job' ][ 'job_region' ] ) ? $values[ 'job' ][ 'job_region' ] : null;
+
+		if ( ! $revion )
+			return;
+
 		$term   = get_term_by( 'slug', $region, 'job_listing_region' );
 
 		wp_set_post_terms( $job_id, array( $term->term_id ), 'job_listing_region', false );
