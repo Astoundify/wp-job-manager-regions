@@ -174,7 +174,7 @@ class Astoundify_Job_Manager_Regions {
 
 		$terms = wp_get_post_terms( $post->ID, 'job_listing_region' );
 
-		if ( is_wp_error( $terms ) )
+		if ( is_wp_error( $terms ) || empty( $terms ) )
 			return $job_location;
 
 		$location = $terms[0];
