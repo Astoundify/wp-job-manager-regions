@@ -1,1 +1,0 @@
-Requires: https://github.com/mikejolley/WP-Job-Manager
