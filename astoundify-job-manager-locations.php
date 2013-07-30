@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Predefined Regions for WP Job Manager
+ * Plugin Name: WP Job Manager - Predefined Regions
  * Plugin URI:  https://github.com/astoundify/wp-job-manager-colors
  * Description: Create predefined regions that job submissions can associate themselves with.
  * Author:      Astoundify

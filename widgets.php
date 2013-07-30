@@ -6,6 +6,7 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+if ( class_exists( 'Jobify_Widget' ) ) :
 /**
  * Simple list
  */
@@ -64,3 +65,4 @@ class Astoundify_Job_Manager_Regions_Widget extends Jobify_Widget {
 		$this->cache_widget( $args, $content );
 	}
 }
+endif;
