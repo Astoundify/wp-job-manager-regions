@@ -273,6 +273,9 @@ function ajmr_get_regions_simple() {
  * @since 1.1
  */
 function ajmr_widgets_init() {
+	if ( ! class_exists( 'Jobify_Widget' ) )
+		return;
+		
 	$ajmr = ajmr();
 
 	include_once( $ajmr->plugin_dir . '/widgets.php' );
