@@ -5,7 +5,7 @@
  * Description: Create predefined regions that job submissions can associate themselves with.
  * Author:      Astoundify
  * Author URI:  http://astoundify.com
- * Version:     1.3
+ * Version:     1.3.1
  * Text Domain: ajmr
  */
 
@@ -50,14 +50,14 @@ class Astoundify_Job_Manager_Regions {
 	 */
 	private function setup_globals() {
 		$this->file         = __FILE__;
-		
+
 		$this->basename     = apply_filters( 'ajmr_plugin_basenname', plugin_basename( $this->file ) );
 		$this->plugin_dir   = apply_filters( 'ajmr_plugin_dir_path',  plugin_dir_path( $this->file ) );
 		$this->plugin_url   = apply_filters( 'ajmr_plugin_dir_url',   plugin_dir_url ( $this->file ) );
 
 		$this->lang_dir     = apply_filters( 'ajmr_lang_dir',     trailingslashit( $this->plugin_dir . 'languages' ) );
 
-		$this->domain       = 'ajmr'; 
+		$this->domain       = 'ajmr';
 	}
 
 	/**
@@ -85,7 +85,7 @@ class Astoundify_Job_Manager_Regions {
 	 */
 	public function register_post_taxonomy() {
 		$admin_capability = 'manage_job_listings';
-		
+
 		$singular  = __( 'Job Region', 'ajmr' );
 		$plural    = __( 'Job Regions', 'ajmr' );
 
@@ -142,7 +142,7 @@ class Astoundify_Job_Manager_Regions {
 			'type'        => 'select',
 			'options'     => ajmr_get_regions_simple(),
 			'required'    => true,
-			'priority'    => 3
+			'priority'    => '2.5'
 		);
 
 		return $fields;
@@ -275,7 +275,7 @@ function ajmr_get_regions_simple() {
 function ajmr_widgets_init() {
 	if ( ! class_exists( 'Jobify_Widget' ) )
 		return;
-		
+
 	$ajmr = ajmr();
 
 	include_once( $ajmr->plugin_dir . '/widgets.php' );
