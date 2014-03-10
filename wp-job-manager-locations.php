@@ -1,12 +1,12 @@
 <?php
 /**
- * Plugin Name: WP Job Manager - Predefined Regions
+ * Plugin Name: WP Job Manager - Predefined Locations
  * Plugin URI:  https://github.com/astoundify/wp-job-manager-locations
- * Description: Create predefined regions that job submissions can associate themselves with.
+ * Description: Create predefined regions/locations that job submissions can associate themselves with.
  * Author:      Astoundify
  * Author URI:  http://astoundify.com
- * Version:     1.3.1
- * Text Domain: ajmr
+ * Version:     1.3.2
+ * Text Domain: wp-job-manager-locations
  */
 
 // Exit if accessed directly
@@ -51,13 +51,13 @@ class Astoundify_Job_Manager_Regions {
 	private function setup_globals() {
 		$this->file         = __FILE__;
 
-		$this->basename     = apply_filters( 'ajmr_plugin_basenname', plugin_basename( $this->file ) );
-		$this->plugin_dir   = apply_filters( 'ajmr_plugin_dir_path',  plugin_dir_path( $this->file ) );
-		$this->plugin_url   = apply_filters( 'ajmr_plugin_dir_url',   plugin_dir_url ( $this->file ) );
+		$this->basename     = plugin_basename( $this->file );
+		$this->plugin_dir   = plugin_dir_path( $this->file );
+		$this->plugin_url   = plugin_dir_url ( $this->file );
 
-		$this->lang_dir     = apply_filters( 'ajmr_lang_dir',     trailingslashit( $this->plugin_dir . 'languages' ) );
+		$this->lang_dir     = trailingslashit( $this->plugin_dir . 'languages' );
 
-		$this->domain       = 'ajmr';
+		$this->domain       = 'wp-job-manager-locations';
 	}
 
 	/**
@@ -86,12 +86,12 @@ class Astoundify_Job_Manager_Regions {
 	public function register_post_taxonomy() {
 		$admin_capability = 'manage_job_listings';
 
-		$singular  = __( 'Job Region', 'ajmr' );
-		$plural    = __( 'Job Regions', 'ajmr' );
+		$singular  = __( 'Job Region', 'wp-job-manager-locations' );
+		$plural    = __( 'Job Regions', 'wp-job-manager-locations' );
 
 		if ( current_theme_supports( 'job-manager-templates' ) ) {
 			$rewrite     = array(
-				'slug'         => _x( 'job-region', 'Job region slug - resave permalinks after changing this', 'ajmr' ),
+				'slug'         => _x( 'job-region', 'Job region slug - resave permalinks after changing this', 'wp-job-manager-locations' ),
 				'with_front'   => false,
 				'hierarchical' => false
 			);
@@ -108,14 +108,14 @@ class Astoundify_Job_Manager_Regions {
 	            'labels' => array(
                     'name' 				=> $plural,
                     'singular_name' 	=> $singular,
-                    'search_items' 		=> sprintf( __( 'Search %s', 'ajmr' ), $plural ),
-                    'all_items' 		=> sprintf( __( 'All %s', 'ajmr' ), $plural ),
-                    'parent_item' 		=> sprintf( __( 'Parent %s', 'ajmr' ), $singular ),
-                    'parent_item_colon' => sprintf( __( 'Parent %s:', 'ajmr' ), $singular ),
-                    'edit_item' 		=> sprintf( __( 'Edit %s', 'ajmr' ), $singular ),
-                    'update_item' 		=> sprintf( __( 'Update %s', 'ajmr' ), $singular ),
-                    'add_new_item' 		=> sprintf( __( 'Add New %s', 'ajmr' ), $singular ),
-                    'new_item_name' 	=> sprintf( __( 'New %s Name', 'ajmr' ),  $singular )
+                    'search_items' 		=> sprintf( __( 'Search %s', 'wp-job-manager-locations' ), $plural ),
+                    'all_items' 		=> sprintf( __( 'All %s', 'wp-job-manager-locations' ), $plural ),
+                    'parent_item' 		=> sprintf( __( 'Parent %s', 'wp-job-manager-locations' ), $singular ),
+                    'parent_item_colon' => sprintf( __( 'Parent %s:', 'wp-job-manager-locations' ), $singular ),
+                    'edit_item' 		=> sprintf( __( 'Edit %s', 'wp-job-manager-locations' ), $singular ),
+                    'update_item' 		=> sprintf( __( 'Update %s', 'wp-job-manager-locations' ), $singular ),
+                    'add_new_item' 		=> sprintf( __( 'Add New %s', 'wp-job-manager-locations' ), $singular ),
+                    'new_item_name' 	=> sprintf( __( 'New %s Name', 'wp-job-manager-locations' ),  $singular )
             	),
 	            'show_ui' 				=> true,
 	            'query_var' 			=> true,
@@ -140,7 +140,7 @@ class Astoundify_Job_Manager_Regions {
 		$fields[ 'job' ][ 'job_region' ] = array(
 			'label'       => __( 'Job Region', 'job_manager' ),
 			'type'        => 'select',
-			'options'     => ajmr_get_regions_simple(),
+			'options'     => wp_job_manager_locations_get_regions_simple(),
 			'required'    => true,
 			'priority'    => '2.5'
 		);
@@ -195,7 +195,7 @@ class Astoundify_Job_Manager_Regions {
 
 		$job_location = sprintf( '%s &mdash; <a href="%s">%s</a>', $job_location, get_term_link( $location, 'job_listing_region' ), $locname );
 
-		return apply_filters( 'ajmr_job_location', $job_location, $location );
+		return apply_filters( 'wp_job_manager_locations_job_location', $job_location, $location );
 	}
 
 	/**
@@ -234,19 +234,19 @@ class Astoundify_Job_Manager_Regions {
  *
  * @since 1.0
  */
-function ajmr() {
+function wp_job_manager_locations() {
 	return Astoundify_Job_Manager_Regions::instance();
 }
 
-ajmr();
+wp_job_manager_locations();
 
 /**
  * Get regions (terms) helper.
  *
  * @since 1.0
  */
-function ajmr_get_regions() {
-	$locations = get_terms( 'job_listing_region', apply_filters( 'ajmr_get_region_args', array( 'hide_empty' => 0 ) ) );
+function wp_job_manager_locations_get_regions() {
+	$locations = get_terms( 'job_listing_region', apply_filters( 'wp_job_manager_locations_get_region_args', array( 'hide_empty' => 0 ) ) );
 
 	return $locations;
 }
@@ -256,15 +256,15 @@ function ajmr_get_regions() {
  *
  * @since 1.0
  */
-function ajmr_get_regions_simple() {
-	$locations = ajmr_get_regions();
+function wp_job_manager_locations_get_regions_simple() {
+	$locations = wp_job_manager_locations_get_regions();
 	$simple    = array();
 
 	foreach ( $locations as $location ) {
 		$simple[ $location->slug ] = $location->name;
 	}
 
-	return apply_filters( 'ajmr_get_regions_simple', $simple );
+	return apply_filters( 'wp_job_manager_locations_get_regions_simple', $simple );
 }
 
 /**
@@ -272,14 +272,14 @@ function ajmr_get_regions_simple() {
  *
  * @since 1.1
  */
-function ajmr_widgets_init() {
+function wp_job_manager_locations_widgets_init() {
 	if ( ! class_exists( 'Jobify_Widget' ) )
 		return;
 
-	$ajmr = ajmr();
+	$ajmr = wp_job_manager_locations();
 
 	include_once( $ajmr->plugin_dir . '/widgets.php' );
 
 	register_widget( 'Astoundify_Job_Manager_Regions_Widget' );
 }
-add_action( 'after_setup_theme', 'ajmr_widgets_init', 11 );
+add_action( 'after_setup_theme', 'wp_job_manager_locations_widgets_init', 11 );
