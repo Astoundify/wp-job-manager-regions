@@ -5,7 +5,7 @@
  * Description: Create predefined regions/locations that job submissions can associate themselves with.
  * Author:      Astoundify
  * Author URI:  http://astoundify.com
- * Version:     1.3.2
+ * Version:     1.4.0
  * Text Domain: wp-job-manager-locations
  */
 
@@ -33,7 +33,7 @@ class Astoundify_Job_Manager_Regions {
 	/**
 	 * Start things up.
 	 *
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public function __construct() {
 		$this->setup_globals();
@@ -44,7 +44,7 @@ class Astoundify_Job_Manager_Regions {
 	 * Set some smart defaults to class variables. Allow some of them to be
 	 * filtered to allow for early overriding.
 	 *
-	 * @since 1.0
+	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
@@ -63,12 +63,15 @@ class Astoundify_Job_Manager_Regions {
 	/**
 	 * Setup the default hooks and actions
 	 *
-	 * @since 1.0
+	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
 	private function setup_actions() {
+		add_filter( 'job_manager_locate_template', array( $this, 'locate_template' ), 10, 3 );
+
 		add_action( 'init', array( $this, 'register_post_taxonomy' ) );
+
 		add_filter( 'submit_job_form_fields', array( $this, 'form_fields' ) );
 		add_action( 'job_manager_update_job_data', array( $this, 'update_job_data' ), 10, 2 );
 		add_filter( 'submit_job_form_fields_get_job_data', array( $this, 'form_fields_get_job_data' ), 10, 2 );
@@ -78,10 +81,22 @@ class Astoundify_Job_Manager_Regions {
 		$this->load_textdomain();
 	}
 
+	public function locate_template( $template, $template_name, $template_path ) {
+		global $job_manager;
+
+		if ( ! file_exists( $template ) ) {
+			$default_path = $this->plugin_dir . '/templates/';
+
+			$template = $default_path . $template_name;
+		}
+
+		return $template;
+	}
+
 	/**
 	 * Create the `job_listing_region` taxonomy.
 	 *
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public function register_post_taxonomy() {
 		$admin_capability = 'manage_job_listings';
@@ -134,15 +149,15 @@ class Astoundify_Job_Manager_Regions {
 	/**
 	 * Add the field to the submission form.
 	 *
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	function form_fields( $fields ) {
 		$fields[ 'job' ][ 'job_region' ] = array(
 			'label'       => __( 'Job Region', 'job_manager' ),
-			'type'        => 'select',
-			'options'     => wp_job_manager_locations_get_regions_simple(),
+			'type'        => 'job-region',
 			'required'    => true,
-			'priority'    => '2.5'
+			'priority'    => '2.5',
+			'default'     => -1
 		);
 
 		return $fields;
@@ -152,7 +167,7 @@ class Astoundify_Job_Manager_Regions {
 	 * Get the current value for the job region. We can't rely
 	 * on basic meta value getting, instead we need to find the term.
 	 *
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	function form_fields_get_job_data( $fields, $job ) {
 		$fields[ 'job' ][ 'job_region' ][ 'value' ] = current( wp_get_object_terms( $job->ID, 'job_listing_region', array( 'fields' => 'slugs' ) ) );
@@ -163,7 +178,7 @@ class Astoundify_Job_Manager_Regions {
 	/**
 	 * When the form is submitted, update the data.
 	 *
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	function update_job_data( $job_id, $values ) {
 		$region = isset ( $values[ 'job' ][ 'job_region' ] ) ? $values[ 'job' ][ 'job_region' ] : null;
@@ -179,7 +194,7 @@ class Astoundify_Job_Manager_Regions {
 	/**
 	 * On a singular job page, append the region to the location.
 	 *
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	function the_job_location( $job_location, $post ) {
 		if ( ! is_singular( 'job_listing' ) )
@@ -201,7 +216,7 @@ class Astoundify_Job_Manager_Regions {
 	/**
 	 * Loads the plugin language files
 	 *
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public function load_textdomain() {
 		// Traditional WordPress plugin locale filter
@@ -232,40 +247,13 @@ class Astoundify_Job_Manager_Regions {
  *
  * $ajmr = ajmr();
  *
- * @since 1.0
+ * @since 1.0.0
  */
 function wp_job_manager_locations() {
 	return Astoundify_Job_Manager_Regions::instance();
 }
 
 wp_job_manager_locations();
-
-/**
- * Get regions (terms) helper.
- *
- * @since 1.0
- */
-function wp_job_manager_locations_get_regions() {
-	$locations = get_terms( 'job_listing_region', apply_filters( 'wp_job_manager_locations_get_region_args', array( 'hide_empty' => 0 ) ) );
-
-	return $locations;
-}
-
-/**
- * Create a key => value pair of term ID and term name.
- *
- * @since 1.0
- */
-function wp_job_manager_locations_get_regions_simple() {
-	$locations = wp_job_manager_locations_get_regions();
-	$simple    = array();
-
-	foreach ( $locations as $location ) {
-		$simple[ $location->slug ] = $location->name;
-	}
-
-	return apply_filters( 'wp_job_manager_locations_get_regions_simple', $simple );
-}
 
 /**
  * Custom widgets
