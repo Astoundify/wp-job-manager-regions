@@ -74,6 +74,7 @@ class Astoundify_Job_Manager_Regions {
 
 		if ( get_option( 'job_manager_regions_filter' ) ) {
 			add_filter( 'job_manager_get_listings', array( $this, 'job_manager_get_listings' ) );
+			add_filter( 'get_job_listings_query_args', array( $this, 'get_job_listings_query_args' ) );
 		}
 
 		$this->load_textdomain();
@@ -154,6 +155,10 @@ class Astoundify_Job_Manager_Regions {
 		//print_r( $args );
 
 		return $args;
+	}
+
+	public function get_job_listings_query_args( $query_args, $args ) {
+
 	}
 
 	/**
