@@ -11,7 +11,7 @@ class Astoundify_Job_Manager_Regions_Taxonomy extends Astoundify_Job_Manager_Reg
 	 *
 	 * @since 1.0.0
 	 */
-	public function register_post_taxonomy() {
+	public function register_taxonomy() {
 		$admin_capability = 'manage_job_listings';
 
 		$singular  = __( 'Job Region', 'wp-job-manager-locations' );

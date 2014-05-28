@@ -3,10 +3,32 @@
 class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Regions {
 
 	public function __construct() {
-		add_filter( 'submit_job_form_fields', array( $this, 'submit_job_form_fields' ) );
+		// Template loader
+		add_filter( 'job_manager_locate_template', array( $this, 'locate_template' ), 10, 3 );
 
-		add_action( 'job_manager_job_filters_search_jobs_end', array( $this, 'job_manager_job_filters_search_jobs_end' ) );
+		add_filter( 'submit_job_form_fields', array( $this, 'submit_job_form_fields' ) );
 		add_filter( 'the_job_location', array( $this, 'the_job_location' ), 10, 2 );
+
+		if ( get_option( 'job_manager_regions_filter' ) ) {
+			add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
+			add_action( 'job_manager_job_filters_search_jobs_end', array( $this, 'job_manager_job_filters_search_jobs_end' ) );
+		}
+	}
+
+	public function locate_template( $template, $template_name, $template_path ) {
+		global $job_manager;
+
+		if ( ! file_exists( $template ) ) {
+			$default_path = $this->plugin_dir . '/templates/';
+
+			$template = $default_path . $template_name;
+		}
+
+		return $template;
+	}
+
+	public function wp_enqueue_scripts() {
+		wp_enqueue_script( 'job-regions', wp_job_manager_regions()->plugin_url . '/assets/js/main.js', array( 'jquery' ), 20140525, true );
 	}
 
 	/**
@@ -31,30 +53,27 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 			'show_option_all' => __( 'All Regions', 'wp-job-manager-locations' ),
 			'hierarchical' => true,
 			'taxonomy' => 'job_listing_region',
-			'name' => 'search_region'
+			'name' => 'search_region',
+			'class' => 'search_region',
+			'hide_empty' => false
 		) );
 	}
 
 	/**
-	 * On a singular job page, append the region to the location.
+	 * Replace location output with the region.
 	 *
 	 * @since 1.0.0
 	 */
 	public function the_job_location( $job_location, $post ) {
-		if ( ! is_singular( 'job_listing' ) )
-			return $job_location;
-
 		$terms = wp_get_post_terms( $post->ID, 'job_listing_region' );
 
-		if ( is_wp_error( $terms ) || empty( $terms ) )
+		if ( is_wp_error( $terms ) || empty( $terms ) ) {
 			return $job_location;
+		}
 
 		$location = $terms[0];
-		$locname  = $location->name;
 
-		$job_location = sprintf( '%s &mdash; <a href="%s">%s</a>', $job_location, get_term_link( $location, 'job_listing_region' ), $locname );
-
-		return apply_filters( 'wp_job_manager_locations_job_location', $job_location, $location );
+		return $location->name;
 	}
 
 }

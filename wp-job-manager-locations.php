@@ -36,32 +36,13 @@ class Astoundify_Job_Manager_Regions {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		$this->setup_globals();
-		$this->includes();
-		$this->setup_actions();
-	}
-
-	/**
-	 * Set some smart defaults to class variables. Allow some of them to be
-	 * filtered to allow for early overriding.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return void
-	 */
-	private function setup_globals() {
 		$this->file         = __FILE__;
-
 		$this->basename     = plugin_basename( $this->file );
 		$this->plugin_dir   = plugin_dir_path( $this->file );
 		$this->plugin_url   = plugin_dir_url ( $this->file );
-
 		$this->lang_dir     = trailingslashit( $this->plugin_dir . 'languages' );
-
 		$this->domain       = 'wp-job-manager-locations';
-	}
 
-	private function includes() {
 		$files = array(
 			'includes/class-taxonomy.php',
 			'includes/class-template.php',
@@ -69,8 +50,13 @@ class Astoundify_Job_Manager_Regions {
 		);
 
 		foreach ( $files as $file ) {
-			include_once( $this->plugin_dir . '/' . $file;
+			include_once( $this->plugin_dir . '/' . $file );
 		}
+
+		$this->taxonomy = new Astoundify_Job_Manager_Regions_Taxonomy;
+		$this->template = new Astoundify_Job_Manager_Regions_Template;
+
+		$this->setup_actions();
 	}
 
 	/**
@@ -81,24 +67,16 @@ class Astoundify_Job_Manager_Regions {
 	 * @return void
 	 */
 	private function setup_actions() {
-		add_filter( 'job_manager_locate_template', array( $this, 'locate_template' ), 10, 3 );
-
 		add_action( 'job_manager_update_job_data', array( $this, 'update_job_data' ), 10, 2 );
 		add_filter( 'submit_job_form_fields_get_job_data', array( $this, 'form_fields_get_job_data' ), 10, 2 );
 
-		$this->load_textdomain();
-	}
+		add_filter( 'job_manager_settings', array( $this, 'job_manager_settings' ) );
 
-	public function locate_template( $template, $template_name, $template_path ) {
-		global $job_manager;
-
-		if ( ! file_exists( $template ) ) {
-			$default_path = $this->plugin_dir . '/templates/';
-
-			$template = $default_path . $template_name;
+		if ( get_option( 'job_manager_regions_filter' ) ) {
+			add_filter( 'job_manager_get_listings', array( $this, 'job_manager_get_listings' ) );
 		}
 
-		return $template;
+		$this->load_textdomain();
 	}
 
 	/**
@@ -130,24 +108,98 @@ class Astoundify_Job_Manager_Regions {
 	}
 
 	/**
+	 * Add settings fields to select the appropriate form for each listing type.
+	 *
+	 * @since WP Job Manager - Predefiend Regions 1.4.1
+	 *
+	 * @return void
+	 */
+	public function job_manager_settings($settings) {
+		$settings[ 'job_listings' ][1][] = array(
+			'name'     => 'job_manager_regions_filter',
+			'std'      => '1',
+			'label'    => __( 'Job Regions', 'wp-job-manager-locations' ),
+			'cb_label' => __( 'Filter by Region', 'wp-job-manager-locations' ),
+			'desc'     => __( 'Use a dropdown instead of a text input.' ),
+			'type'     => 'checkbox'
+		);
+
+		return $settings;
+	}
+
+	public function job_manager_get_listings( $args ) {
+		$params = array();
+
+		if ( isset( $_POST[ 'form_data' ] ) ) {
+
+			parse_str( $_POST[ 'form_data' ], $params );
+
+			if ( isset( $params[ 'search_region' ] ) && 0 != $params[ 'search_region' ] ) {
+				$region = $params[ 'search_region' ];
+
+				$args[ 'tax_query' ][] = array(
+					'taxonomy' => 'job_listing_region',
+					'field'    => 'id',
+					'terms'    => array( $region ),
+					'operator' => 'IN'
+				);
+
+				add_filter( 'job_manager_get_listings_custom_filter', '__return_true' );
+				add_filter( 'job_manager_get_listings_custom_filter_text', array( $this, 'custom_filter_text' ) );
+				add_filter( 'job_manager_get_listings_custom_filter_rss_args', array( $this, 'custom_filter_rss' ) );
+			}
+
+		}
+
+		//print_r( $args );
+
+		return $args;
+	}
+
+	/**
+	 * Append 'showing' text
+	 * @return string
+	 */
+	public function custom_filter_text( $text ) {
+		$params = array();
+
+		parse_str( $_POST[ 'form_data' ], $params );
+
+		$term = get_term( $params[ 'search_region' ], 'job_listing_region' );
+
+		$text .= sprintf( ' ' .  __( 'in %s', 'wp-job-manager-locations' ) . ' ', $term->name );
+
+		return $text;
+	}
+
+	/**
+	 * apply_tag_filter_rss
+	 * @return array
+	 */
+	public function custom_filter_rss( $args ) {
+		$params = array();
+
+		parse_str( $_POST[ 'form_data' ], $params );
+
+		$args[ 'job_region' ] = $params[ 'search_region' ];
+
+		return $args;
+	}
+
+	/**
 	 * Loads the plugin language files
 	 *
 	 * @since 1.0.0
 	 */
 	public function load_textdomain() {
-		// Traditional WordPress plugin locale filter
-		$locale        = apply_filters( 'plugin_locale', get_locale(), $this->domain );
-		$mofile        = sprintf( '%1$s-%2$s.mo', $this->domain, $locale );
+		$locale = apply_filters( 'plugin_locale', get_locale(), $this->domain );
+		$mofile = sprintf( '%1$s-%2$s.mo', $this->domain, $locale );
 
-		// Setup paths to current locale file
-		$mofile_local  = $this->lang_dir . $mofile;
+		$mofile_local = $this->lang_dir . $mofile;
 		$mofile_global = WP_LANG_DIR . '/' . $this->domain . '/' . $mofile;
 
-		// Look in global /wp-content/languages/ajmr folder
 		if ( file_exists( $mofile_global ) ) {
 			return load_textdomain( $this->domain, $mofile_global );
-
-		// Look in local /wp-content/plugins/ajmr/languages/ folder
 		} elseif ( file_exists( $mofile_local ) ) {
 			return load_textdomain( $this->domain, $mofile_local );
 		}
@@ -165,8 +217,8 @@ class Astoundify_Job_Manager_Regions {
  *
  * @since 1.0.0
  */
-function wp_job_manager_locations() {
+function wp_job_manager_regions() {
 	return Astoundify_Job_Manager_Regions::instance();
 }
 
-wp_job_manager_locations();
+wp_job_manager_regions();

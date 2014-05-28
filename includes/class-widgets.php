@@ -17,7 +17,7 @@ class Astoundify_Job_Manager_Regions_Widgets extends Astoundify_Job_Manager_Regi
 			include_once( $this->plugin_dir . '/' . $widget );
 		}
 
-		add_action( 'widgets_init', array( $this, 'widgets_init' );
+		add_action( 'widgets_init', array( $this, 'widgets_init' ) );
 	}
 
 	public function widgets_init() {
