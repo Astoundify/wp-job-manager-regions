@@ -1,16 +1,9 @@
 <?php
-/**
- * Widgets
- */
 
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
-
-if ( class_exists( 'Jobify_Widget' ) ) :
 /**
  * Simple list
  */
-class Astoundify_Job_Manager_Regions_Widget extends Jobify_Widget {
+class Astoundify_Job_Manager_Regions_Widget_List extends Jobify_Widget {
 	/**
 	 * Constructor
 	 */
@@ -47,7 +40,7 @@ class Astoundify_Job_Manager_Regions_Widget extends Jobify_Widget {
 		extract( $args );
 
 		echo $before_widget;
-		
+
 		if ( $instance[ 'title' ] ) echo $before_title . $instance[ 'title' ] . $after_title;
 
 		wp_list_categories( array(
@@ -65,4 +58,3 @@ class Astoundify_Job_Manager_Regions_Widget extends Jobify_Widget {
 		$this->cache_widget( $args, $content );
 	}
 }
-endif;

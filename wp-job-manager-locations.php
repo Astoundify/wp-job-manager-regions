@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name: WP Job Manager - Predefined Locations
- * Plugin URI:  https://github.com/astoundify/wp-job-manager-locations
+ * Plugin Name: WP Job Manager - Predefined Regions
+ * Plugin URI:  https://github.com/astoundify/wp-job-manager-regions/
  * Description: Create predefined regions/locations that job submissions can associate themselves with.
  * Author:      Astoundify
  * Author URI:  http://astoundify.com
@@ -37,6 +37,7 @@ class Astoundify_Job_Manager_Regions {
 	 */
 	public function __construct() {
 		$this->setup_globals();
+		$this->includes();
 		$this->setup_actions();
 	}
 
@@ -60,6 +61,18 @@ class Astoundify_Job_Manager_Regions {
 		$this->domain       = 'wp-job-manager-locations';
 	}
 
+	private function includes() {
+		$files = array(
+			'includes/class-taxonomy.php',
+			'includes/class-template.php',
+			'includes/class-widgets.php'
+		);
+
+		foreach ( $files as $file ) {
+			include_once( $this->plugin_dir . '/' . $file;
+		}
+	}
+
 	/**
 	 * Setup the default hooks and actions
 	 *
@@ -70,13 +83,8 @@ class Astoundify_Job_Manager_Regions {
 	private function setup_actions() {
 		add_filter( 'job_manager_locate_template', array( $this, 'locate_template' ), 10, 3 );
 
-		add_action( 'init', array( $this, 'register_post_taxonomy' ) );
-
-		add_filter( 'submit_job_form_fields', array( $this, 'form_fields' ) );
 		add_action( 'job_manager_update_job_data', array( $this, 'update_job_data' ), 10, 2 );
 		add_filter( 'submit_job_form_fields_get_job_data', array( $this, 'form_fields_get_job_data' ), 10, 2 );
-
-		add_filter( 'the_job_location', array( $this, 'the_job_location' ), 10, 2 );
 
 		$this->load_textdomain();
 	}
@@ -91,76 +99,6 @@ class Astoundify_Job_Manager_Regions {
 		}
 
 		return $template;
-	}
-
-	/**
-	 * Create the `job_listing_region` taxonomy.
-	 *
-	 * @since 1.0.0
-	 */
-	public function register_post_taxonomy() {
-		$admin_capability = 'manage_job_listings';
-
-		$singular  = __( 'Job Region', 'wp-job-manager-locations' );
-		$plural    = __( 'Job Regions', 'wp-job-manager-locations' );
-
-		if ( current_theme_supports( 'job-manager-templates' ) ) {
-			$rewrite     = array(
-				'slug'         => _x( 'job-region', 'Job region slug - resave permalinks after changing this', 'wp-job-manager-locations' ),
-				'with_front'   => false,
-				'hierarchical' => false
-			);
-		} else {
-			$rewrite = false;
-		}
-
-		register_taxonomy( 'job_listing_region',
-	        array( 'job_listing' ),
-	        array(
-	            'hierarchical' 			=> true,
-	            'update_count_callback' => '_update_post_term_count',
-	            'label' 				=> $plural,
-	            'labels' => array(
-                    'name' 				=> $plural,
-                    'singular_name' 	=> $singular,
-                    'search_items' 		=> sprintf( __( 'Search %s', 'wp-job-manager-locations' ), $plural ),
-                    'all_items' 		=> sprintf( __( 'All %s', 'wp-job-manager-locations' ), $plural ),
-                    'parent_item' 		=> sprintf( __( 'Parent %s', 'wp-job-manager-locations' ), $singular ),
-                    'parent_item_colon' => sprintf( __( 'Parent %s:', 'wp-job-manager-locations' ), $singular ),
-                    'edit_item' 		=> sprintf( __( 'Edit %s', 'wp-job-manager-locations' ), $singular ),
-                    'update_item' 		=> sprintf( __( 'Update %s', 'wp-job-manager-locations' ), $singular ),
-                    'add_new_item' 		=> sprintf( __( 'Add New %s', 'wp-job-manager-locations' ), $singular ),
-                    'new_item_name' 	=> sprintf( __( 'New %s Name', 'wp-job-manager-locations' ),  $singular )
-            	),
-	            'show_ui' 				=> true,
-	            'query_var' 			=> true,
-	            'has_archive'           => true,
-	            'capabilities'			=> array(
-	            	'manage_terms' 		=> $admin_capability,
-	            	'edit_terms' 		=> $admin_capability,
-	            	'delete_terms' 		=> $admin_capability,
-	            	'assign_terms' 		=> $admin_capability,
-	            ),
-	            'rewrite' 				=> $rewrite,
-	        )
-	    );
-	}
-
-	/**
-	 * Add the field to the submission form.
-	 *
-	 * @since 1.0.0
-	 */
-	function form_fields( $fields ) {
-		$fields[ 'job' ][ 'job_region' ] = array(
-			'label'       => __( 'Job Region', 'job_manager' ),
-			'type'        => 'job-region',
-			'required'    => true,
-			'priority'    => '2.5',
-			'default'     => -1
-		);
-
-		return $fields;
 	}
 
 	/**
@@ -186,31 +124,9 @@ class Astoundify_Job_Manager_Regions {
 		if ( ! $region )
 			return;
 
-		$term   = get_term_by( 'slug', $region, 'job_listing_region' );
+		$term = get_term_by( 'slug', $region, 'job_listing_region' );
 
 		wp_set_post_terms( $job_id, array( $term->term_id ), 'job_listing_region', false );
-	}
-
-	/**
-	 * On a singular job page, append the region to the location.
-	 *
-	 * @since 1.0.0
-	 */
-	function the_job_location( $job_location, $post ) {
-		if ( ! is_singular( 'job_listing' ) )
-			return $job_location;
-
-		$terms = wp_get_post_terms( $post->ID, 'job_listing_region' );
-
-		if ( is_wp_error( $terms ) || empty( $terms ) )
-			return $job_location;
-
-		$location = $terms[0];
-		$locname  = $location->name;
-
-		$job_location = sprintf( '%s &mdash; <a href="%s">%s</a>', $job_location, get_term_link( $location, 'job_listing_region' ), $locname );
-
-		return apply_filters( 'wp_job_manager_locations_job_location', $job_location, $location );
 	}
 
 	/**
@@ -254,20 +170,3 @@ function wp_job_manager_locations() {
 }
 
 wp_job_manager_locations();
-
-/**
- * Custom widgets
- *
- * @since 1.1
- */
-function wp_job_manager_locations_widgets_init() {
-	if ( ! class_exists( 'Jobify_Widget' ) )
-		return;
-
-	$ajmr = wp_job_manager_locations();
-
-	include_once( $ajmr->plugin_dir . '/widgets.php' );
-
-	register_widget( 'Astoundify_Job_Manager_Regions_Widget' );
-}
-add_action( 'after_setup_theme', 'wp_job_manager_locations_widgets_init', 11 );
