@@ -157,8 +157,8 @@ class Astoundify_Job_Manager_Regions {
 		return $args;
 	}
 
-	public function get_job_listings_query_args( $query_args, $args ) {
-
+	public function get_job_listings_query_args( $query_args ) {
+		return $query_args;
 	}
 
 	/**

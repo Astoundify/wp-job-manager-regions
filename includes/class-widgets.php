@@ -9,6 +9,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class Astoundify_Job_Manager_Regions_Widgets extends Astoundify_Job_Manager_Regions {
 
 	public function __construct() {
+		if ( ! class_exists( 'Jobify_Widget' ) ) {
+			return;
+		}
+
 		$widgets = array(
 			'class-widget-region-list.php'
 		);
