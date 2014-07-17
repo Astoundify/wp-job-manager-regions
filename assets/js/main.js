@@ -5,7 +5,7 @@
 		cache: {
 			$document: $(document),
 			$window: $(window),
-			$search_jobs: $( '.search_jobs' )
+			$search_jobs: $( '.search_jobs, .job_search_form' )
 		},
 
 		init: function() {

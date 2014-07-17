@@ -38,7 +38,7 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 	 */
 	public function submit_job_form_fields( $fields ) {
 		$fields[ 'job' ][ 'job_region' ] = array(
-			'label'       => __( 'Job Region', 'job_manager' ),
+			'label'       => __( 'Job Region', 'wp-job-manager-locations' ),
 			'type'        => 'job-region',
 			'required'    => true,
 			'priority'    => '2.5',
@@ -49,6 +49,10 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 	}
 
 	public function job_manager_job_filters_search_jobs_end( $atts ) {
+		if ('' == $atts[ 'selected_region' ] && $_GET[ 'search_region' ] ) {
+			$atts[ 'selected_region' ] = absint( $_GET[ 'search_region' ] );
+		}
+
 		wp_dropdown_categories( array(
 			'show_option_all' => __( 'All Regions', 'wp-job-manager-locations' ),
 			'hierarchical' => true,
@@ -56,7 +60,7 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 			'name' => 'search_region',
 			'class' => 'search_region',
 			'hide_empty' => false,
-			'selected' => $atts[ 'selected_region' ]
+			'selected' => isset( $atts[ 'selected_region' ] ) ? $atts[ 'selected_region' ] : ''
 		) );
 	}
 
