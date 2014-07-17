@@ -73,8 +73,8 @@ class Astoundify_Job_Manager_Regions {
 		add_filter( 'job_manager_settings', array( $this, 'job_manager_settings' ) );
 
 		if ( get_option( 'job_manager_regions_filter' ) ) {
+			add_filter( 'job_manager_output_jobs_defaults', array( $this, 'job_manager_output_jobs_defaults' ) );
 			add_filter( 'job_manager_get_listings', array( $this, 'job_manager_get_listings' ) );
-			add_filter( 'get_job_listings_query_args', array( $this, 'get_job_listings_query_args' ) );
 		}
 
 		$this->load_textdomain();
@@ -128,6 +128,19 @@ class Astoundify_Job_Manager_Regions {
 		return $settings;
 	}
 
+	public function job_manager_output_jobs_defaults( $defaults ) {
+		$defaults[ 'selected_region' ] = '';
+
+		if ( is_tax( 'job_listing_region' ) ) {
+			$type = get_queried_object();
+
+			$defaults[ 'show_categories' ] = true;
+			$defaults[ 'selected_region' ] = $type->term_id;
+		}
+
+		return $defaults;
+	}
+
 	public function job_manager_get_listings( $args ) {
 		$params = array();
 
@@ -155,10 +168,6 @@ class Astoundify_Job_Manager_Regions {
 		//print_r( $args );
 
 		return $args;
-	}
-
-	public function get_job_listings_query_args( $query_args ) {
-		return $query_args;
 	}
 
 	/**

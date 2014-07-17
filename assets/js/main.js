@@ -29,8 +29,6 @@
 		},
 
 		addRegions: function() {
-			var $clone = this.cache.$regions.clone();
-
 			this.cache.$location.html( '' );
 			this.cache.$regions.detach().appendTo( this.cache.$location );
 		},

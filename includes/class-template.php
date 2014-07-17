@@ -19,7 +19,7 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 		global $job_manager;
 
 		if ( ! file_exists( $template ) ) {
-			$default_path = $this->plugin_dir . '/templates/';
+			$default_path = wp_job_manager_regions()->plugin_dir . '/templates/';
 
 			$template = $default_path . $template_name;
 		}
@@ -55,7 +55,8 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 			'taxonomy' => 'job_listing_region',
 			'name' => 'search_region',
 			'class' => 'search_region',
-			'hide_empty' => false
+			'hide_empty' => false,
+			'selected' => $atts[ 'selected_region' ]
 		) );
 	}
 
