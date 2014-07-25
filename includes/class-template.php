@@ -49,7 +49,7 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 	}
 
 	public function job_manager_job_filters_search_jobs_end( $atts ) {
-		if ('' == $atts[ 'selected_region' ] && $_GET[ 'search_region' ] ) {
+		if ( ( ! isset( $atts[ 'selected_region' ] ) || '' == $atts[ 'selected_region' ] ) && isset( $_GET[ 'search_region' ] ) ) {
 			$atts[ 'selected_region' ] = absint( $_GET[ 'search_region' ] );
 		}
 

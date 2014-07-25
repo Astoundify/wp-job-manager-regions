@@ -75,6 +75,7 @@ class Astoundify_Job_Manager_Regions {
 		if ( get_option( 'job_manager_regions_filter' ) ) {
 			add_filter( 'job_manager_output_jobs_defaults', array( $this, 'job_manager_output_jobs_defaults' ) );
 			add_filter( 'job_manager_get_listings', array( $this, 'job_manager_get_listings' ) );
+			add_filter( 'job_manager_get_listings_args', array( $this, 'job_manager_get_listings_args' ) );
 		}
 
 		$this->load_textdomain();
@@ -151,10 +152,14 @@ class Astoundify_Job_Manager_Regions {
 			if ( isset( $params[ 'search_region' ] ) && 0 != $params[ 'search_region' ] ) {
 				$region = $params[ 'search_region' ];
 
+				if ( is_int( $region ) ) {
+					$region = array( $region );
+				}
+
 				$args[ 'tax_query' ][] = array(
 					'taxonomy' => 'job_listing_region',
 					'field'    => 'id',
-					'terms'    => array( $region ),
+					'terms'    => $region,
 					'operator' => 'IN'
 				);
 
@@ -165,7 +170,21 @@ class Astoundify_Job_Manager_Regions {
 
 		}
 
-		//print_r( $args );
+		return $args;
+	}
+
+	public function job_manager_get_listings_args( $args ) {
+		$params = array();
+
+		if ( isset( $_POST[ 'form_data' ] ) ) {
+
+			parse_str( $_POST[ 'form_data' ], $params );
+
+			if ( isset( $params[ 'search_region' ] ) && 0 != $params[ 'search_region' ] ) {
+				$args[ 'search_location' ] = ' ';
+			}
+
+		}
 
 		return $args;
 	}
@@ -221,6 +240,7 @@ class Astoundify_Job_Manager_Regions {
 		return false;
 	}
 }
+add_action( 'plugins_loaded', array( 'Astoundify_Job_Manager_Regions', 'instance' ) );
 
 /**
  * Start things up.
@@ -234,5 +254,3 @@ class Astoundify_Job_Manager_Regions {
 function wp_job_manager_regions() {
 	return Astoundify_Job_Manager_Regions::instance();
 }
-
-wp_job_manager_regions();

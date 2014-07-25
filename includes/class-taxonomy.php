@@ -3,7 +3,7 @@
 class Astoundify_Job_Manager_Regions_Taxonomy extends Astoundify_Job_Manager_Regions {
 
 	public function __construct() {
-		add_action( 'init', array( $this, 'register_taxonomy' ) );
+		add_action( 'init', array( $this, 'register_taxonomy' ), 0 );
 	}
 
 	/**
