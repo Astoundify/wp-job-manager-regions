@@ -39,7 +39,8 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 	public function submit_job_form_fields( $fields ) {
 		$fields[ 'job' ][ 'job_region' ] = array(
 			'label'       => __( 'Job Region', 'wp-job-manager-locations' ),
-			'type'        => 'job-region',
+			'type'        => 'term-select',
+			'taxonomy'    => 'job_listing_region',
 			'required'    => true,
 			'priority'    => '2.5',
 			'default'     => -1

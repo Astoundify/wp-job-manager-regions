@@ -1,10 +1,10 @@
-# Copyright (C) 2014 WP Job Manager - Predefined Locations
-# This file is distributed under the same license as the WP Job Manager - Predefined Locations package.
+# Copyright (C) 2014 WP Job Manager - Predefined Regions
+# This file is distributed under the same license as the WP Job Manager - Predefined Regions package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Job Manager - Predefined Locations 1.4.0\n"
+"Project-Id-Version: WP Job Manager - Predefined Regions 1.5.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-job-manager-locations\n"
-"POT-Creation-Date: 2014-05-22 13:50:04+00:00\n"
+"POT-Creation-Date: 2014-09-09 15:19:34+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,61 +12,97 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
+#: includes/class-taxonomy.php:17 includes/class-template.php:41
+msgid "Job Region"
+msgstr ""
+
+#: includes/class-taxonomy.php:18
+#: includes/widgets/class-widget-region-list.php:14
+#: wp-job-manager-locations.php:92
+msgid "Job Regions"
+msgstr ""
+
+#: includes/class-taxonomy.php:22
+msgctxt "Job region slug - resave permalinks after changing this"
+msgid "job-region"
+msgstr ""
+
+#: includes/class-taxonomy.php:39
+msgid "Search %s"
+msgstr ""
+
+#: includes/class-taxonomy.php:40
+msgid "All %s"
+msgstr ""
+
+#: includes/class-taxonomy.php:41
+msgid "Parent %s"
+msgstr ""
+
+#: includes/class-taxonomy.php:42
+msgid "Parent %s:"
+msgstr ""
+
+#: includes/class-taxonomy.php:43
+msgid "Edit %s"
+msgstr ""
+
+#: includes/class-taxonomy.php:44
+msgid "Update %s"
+msgstr ""
+
+#: includes/class-taxonomy.php:45
+msgid "Add New %s"
+msgstr ""
+
+#: includes/class-taxonomy.php:46
+msgid "New %s Name"
+msgstr ""
+
+#: includes/class-template.php:58
+msgid "All Regions"
+msgstr ""
+
+#: includes/widgets/class-widget-region-list.php:12
+msgid "Display a list of job regions."
+msgstr ""
+
+#: includes/widgets/class-widget-region-list.php:19
+msgid "Title:"
+msgstr ""
+
 #: templates/form-fields/job-region-field.php:8
 msgctxt "show option none"
 msgid "&mdash;"
 msgstr ""
 
-#: widgets.php:19
-msgid "Display a list of job regions."
+#: wp-job-manager-locations.php:93
+msgid "Filter by Region"
 msgstr ""
 
-#: widgets.php:21 wp-job-manager-locations.php:105
-msgid "Job Regions"
+#: wp-job-manager-locations.php:94
+msgid "Use a dropdown instead of a text input."
 msgstr ""
 
-#: widgets.php:26
-msgid "Title:"
+#: wp-job-manager-locations.php:172
+msgid "in %s"
+msgstr ""
+#. Plugin Name of the plugin/theme
+msgid "WP Job Manager - Predefined Regions"
 msgstr ""
 
-#: wp-job-manager-locations.php:104 wp-job-manager-locations.php:156
-msgid "Job Region"
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/astoundify/wp-job-manager-regions/"
 msgstr ""
 
-#: wp-job-manager-locations.php:109
-msgctxt "Job region slug - resave permalinks after changing this"
-msgid "job-region"
+#. Description of the plugin/theme
+msgid "Create predefined regions/locations that job submissions can associate themselves with."
 msgstr ""
 
-#: wp-job-manager-locations.php:126
-msgid "Search %s"
+#. Author of the plugin/theme
+msgid "Astoundify"
 msgstr ""
 
-#: wp-job-manager-locations.php:127
-msgid "All %s"
+#. Author URI of the plugin/theme
+msgid "http://astoundify.com"
 msgstr ""
-
-#: wp-job-manager-locations.php:128
-msgid "Parent %s"
-msgstr ""
-
-#: wp-job-manager-locations.php:129
-msgid "Parent %s:"
-msgstr ""
-
-#: wp-job-manager-locations.php:130
-msgid "Edit %s"
-msgstr ""
-
-#: wp-job-manager-locations.php:131
-msgid "Update %s"
-msgstr ""
-
-#: wp-job-manager-locations.php:132
-msgid "Add New %s"
-msgstr ""
-
-#: wp-job-manager-locations.php:133
-msgid "New %s Name"
-msgstr ""
-

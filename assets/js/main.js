@@ -15,7 +15,7 @@
 
 		cacheElements: function() {
 			this.cache.$location = this.cache.$search_jobs.find( '.search_location' );
-			this.cache.$regions = this.cache.$search_jobs.find( '.search_region' );
+			this.cache.$regions = this.cache.$search_jobs.find( '.search_region' ).first();
 		},
 
 		bindEvents: function() {

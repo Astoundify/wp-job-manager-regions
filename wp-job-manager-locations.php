@@ -5,7 +5,7 @@
  * Description: Create predefined regions/locations that job submissions can associate themselves with.
  * Author:      Astoundify
  * Author URI:  http://astoundify.com
- * Version:     1.4.0
+ * Version:     1.5.0
  * Text Domain: wp-job-manager-locations
  */
 
@@ -67,9 +67,6 @@ class Astoundify_Job_Manager_Regions {
 	 * @return void
 	 */
 	private function setup_actions() {
-		add_action( 'job_manager_update_job_data', array( $this, 'update_job_data' ), 10, 2 );
-		add_filter( 'submit_job_form_fields_get_job_data', array( $this, 'form_fields_get_job_data' ), 10, 2 );
-
 		add_filter( 'job_manager_settings', array( $this, 'job_manager_settings' ) );
 
 		if ( get_option( 'job_manager_regions_filter' ) ) {
@@ -79,34 +76,6 @@ class Astoundify_Job_Manager_Regions {
 		}
 
 		$this->load_textdomain();
-	}
-
-	/**
-	 * Get the current value for the job region. We can't rely
-	 * on basic meta value getting, instead we need to find the term.
-	 *
-	 * @since 1.0.0
-	 */
-	function form_fields_get_job_data( $fields, $job ) {
-		$fields[ 'job' ][ 'job_region' ][ 'value' ] = current( wp_get_object_terms( $job->ID, 'job_listing_region', array( 'fields' => 'slugs' ) ) );
-
-		return $fields;
-	}
-
-	/**
-	 * When the form is submitted, update the data.
-	 *
-	 * @since 1.0.0
-	 */
-	function update_job_data( $job_id, $values ) {
-		$region = isset ( $values[ 'job' ][ 'job_region' ] ) ? $values[ 'job' ][ 'job_region' ] : null;
-
-		if ( ! $region )
-			return;
-
-		$term = get_term_by( 'slug', $region, 'job_listing_region' );
-
-		wp_set_post_terms( $job_id, array( $term->term_id ), 'job_listing_region', false );
 	}
 
 	/**
