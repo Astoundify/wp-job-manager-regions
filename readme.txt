@@ -1,4 +1,4 @@
-=== WP Job Manager - Predfined Regions ===
+=== WP Job Manager - Predefined Regions ===
 
 Author URI: http://astoundify.com
 Plugin URI: http://astoundify.com
