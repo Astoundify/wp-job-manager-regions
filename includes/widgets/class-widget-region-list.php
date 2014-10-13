@@ -9,14 +9,14 @@ class Astoundify_Job_Manager_Regions_Widget_List extends Jobify_Widget {
 	 */
 	public function __construct() {
 		$this->widget_cssclass    = 'ajmr_widget_regions';
-		$this->widget_description = __( 'Display a list of job regions.', 'ajmr' );
+		$this->widget_description = __( 'Display a list of job regions.', 'wp-job-manager-locations' );
 		$this->widget_id          = 'ajmr_widget_regions';
-		$this->widget_name        = __( 'Job Regions', 'ajmr' );
+		$this->widget_name        = __( 'Job Regions', 'wp-job-manager-locations' );
 		$this->settings           = array(
 			'title' => array(
 				'type'  => 'text',
 				'std'   => 'Job Regions',
-				'label' => __( 'Title:', 'ajmr' )
+				'label' => __( 'Title:', 'wp-job-manager-locations' )
 			)
 		);
 		parent::__construct();
