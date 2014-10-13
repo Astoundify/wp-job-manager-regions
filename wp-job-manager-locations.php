@@ -150,7 +150,7 @@ class Astoundify_Job_Manager_Regions {
 			parse_str( $_POST[ 'form_data' ], $params );
 
 			if ( isset( $params[ 'search_region' ] ) && 0 != $params[ 'search_region' ] ) {
-				$args[ 'search_location' ] = ' ';
+				$args[ 'search_location' ] = null;
 			}
 
 		}
