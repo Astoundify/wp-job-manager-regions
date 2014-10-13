@@ -104,6 +104,10 @@ class Astoundify_Job_Manager_Regions {
 		if ( is_tax( 'job_listing_region' ) ) {
 			$type = get_queried_object();
 
+			if ( ! $type ) {
+				return $defaults;
+			}
+
 			$defaults[ 'show_categories' ] = true;
 			$defaults[ 'selected_region' ] = $type->term_id;
 		}
