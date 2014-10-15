@@ -60,7 +60,7 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 			'taxonomy' => 'job_listing_region',
 			'name' => 'search_region',
 			'class' => 'search_region',
-			'hide_empty' => false,
+			'hide_empty' => true,
 			'selected' => isset( $atts[ 'selected_region' ] ) ? $atts[ 'selected_region' ] : ''
 		) );
 	}
