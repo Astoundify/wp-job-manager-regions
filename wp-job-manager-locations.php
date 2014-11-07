@@ -69,11 +69,9 @@ class Astoundify_Job_Manager_Regions {
 	private function setup_actions() {
 		add_filter( 'job_manager_settings', array( $this, 'job_manager_settings' ) );
 
-		if ( get_option( 'job_manager_regions_filter' ) ) {
-			add_filter( 'job_manager_output_jobs_defaults', array( $this, 'job_manager_output_jobs_defaults' ) );
-			add_filter( 'job_manager_get_listings', array( $this, 'job_manager_get_listings' ) );
-			add_filter( 'job_manager_get_listings_args', array( $this, 'job_manager_get_listings_args' ) );
-		}
+		add_filter( 'job_manager_output_jobs_defaults', array( $this, 'job_manager_output_jobs_defaults' ) );
+		add_filter( 'job_manager_get_listings', array( $this, 'job_manager_get_listings' ) );
+		add_filter( 'job_manager_get_listings_args', array( $this, 'job_manager_get_listings_args' ) );
 
 		$this->load_textdomain();
 	}
