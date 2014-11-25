@@ -86,7 +86,7 @@ class Astoundify_Job_Manager_Regions {
 	public function job_manager_settings($settings) {
 		$settings[ 'job_listings' ][1][] = array(
 			'name'     => 'job_manager_regions_filter',
-			'std'      => '1',
+			'std'      => '0',
 			'label'    => __( 'Job Regions', 'wp-job-manager-locations' ),
 			'cb_label' => __( 'Filter by Region', 'wp-job-manager-locations' ),
 			'desc'     => __( 'Use a dropdown instead of a text input.' ),
