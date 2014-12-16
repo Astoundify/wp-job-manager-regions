@@ -70,6 +70,7 @@ class Astoundify_Job_Manager_Regions {
 		add_filter( 'job_manager_settings', array( $this, 'job_manager_settings' ) );
 
 		add_filter( 'job_manager_output_jobs_defaults', array( $this, 'job_manager_output_jobs_defaults' ) );
+		add_filter( 'job_manager_output_jobs_args', array( $this, 'job_manager_output_jobs_args' ) );
 		add_filter( 'job_manager_get_listings', array( $this, 'job_manager_get_listings' ) );
 		add_filter( 'job_manager_get_listings_args', array( $this, 'job_manager_get_listings_args' ) );
 
@@ -113,6 +114,14 @@ class Astoundify_Job_Manager_Regions {
 		return $defaults;
 	}
 
+	public function job_manager_output_jobs_args( $args ) {
+		if ( isset( $_GET[ 'selected_region' ] ) && 0 != $_GET[ 'selected_region' ] ) {
+			$args[ 'selected_region' ] = absint( $_GET[ 'selected_region' ] );
+		}
+
+		return $args;
+	}
+
 	public function job_manager_get_listings( $args ) {
 		$params = array();
 
@@ -139,7 +148,21 @@ class Astoundify_Job_Manager_Regions {
 				add_filter( 'job_manager_get_listings_custom_filter_rss_args', array( $this, 'custom_filter_rss' ) );
 			}
 
+		} elseif ( isset( $_GET[ 'selected_region' ] ) ) {
+			$region = $_GET[ 'selected_region' ];
+
+			if ( is_int( $region ) ) {
+				$region = array( $region );
+			}
+
+			$args[ 'tax_query' ][] = array(
+				'taxonomy' => 'job_listing_region',
+				'field'    => 'id',
+				'terms'    => $region,
+				'operator' => 'IN'
+			);
 		}
+																	
 
 		return $args;
 	}
