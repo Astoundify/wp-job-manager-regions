@@ -3,8 +3,6 @@
 class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Regions {
 
 	public function __construct() {
-		add_filter( 'job_manager_locate_template', array( $this, 'locate_template' ), 10, 3 );
-
 		add_filter( 'submit_job_form_fields', array( $this, 'submit_job_form_fields' ) );
 		add_filter( 'the_job_location', array( $this, 'the_job_location' ), 10, 2 );
 
@@ -15,21 +13,6 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 			add_action( 'job_manager_job_filters_search_jobs_end', array( $this, 'tax_archive_field' ) );
 			add_filter( 'body_class', array( $this, 'body_class' ) );
 		}
-	}
-
-	/** 
-	 * Add our template folder to the list to check
-	 */
-	public function locate_template( $template, $template_name, $template_path ) {
-		global $job_manager;
-
-		if ( ! file_exists( $template ) ) {
-			$default_path = wp_job_manager_regions()->plugin_dir . '/templates/';
-
-			$template = $default_path . $template_name;
-		}
-
-		return $template;
 	}
 
 	/** 
