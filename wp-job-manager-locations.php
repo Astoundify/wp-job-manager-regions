@@ -70,11 +70,10 @@ class Astoundify_Job_Manager_Regions {
 		add_filter( 'job_manager_settings', array( $this, 'job_manager_settings' ) );
 
 		add_filter( 'job_manager_output_jobs_defaults', array( $this, 'job_manager_output_jobs_defaults' ) );
-		add_filter( 'job_manager_output_jobs_args', array( $this, 'job_manager_output_jobs_args' ) );
 		add_filter( 'job_manager_get_listings', array( $this, 'job_manager_get_listings' ) );
 		add_filter( 'job_manager_get_listings_args', array( $this, 'job_manager_get_listings_args' ) );
 
-		$this->load_textdomain();
+		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 	}
 
 	/**
@@ -97,6 +96,12 @@ class Astoundify_Job_Manager_Regions {
 		return $settings;
 	}
 
+	/** 
+	 * Modify the default shortcode attributes for displaying listings.
+	 *
+	 * If we are on a listing region term archive set the selected_region so
+	 * we can preselect the dropdown value. This is needed when filtering by region.
+	 */
 	public function job_manager_output_jobs_defaults( $defaults ) {
 		$defaults[ 'selected_region' ] = '';
 
@@ -112,14 +117,6 @@ class Astoundify_Job_Manager_Regions {
 		}
 
 		return $defaults;
-	}
-
-	public function job_manager_output_jobs_args( $args ) {
-		if ( isset( $_GET[ 'selected_region' ] ) && 0 != $_GET[ 'selected_region' ] ) {
-			$args[ 'selected_region' ] = absint( $_GET[ 'selected_region' ] );
-		}
-
-		return $args;
 	}
 
 	public function job_manager_get_listings( $args ) {
@@ -167,6 +164,10 @@ class Astoundify_Job_Manager_Regions {
 		return $args;
 	}
 
+	/**
+	 * Filter the AJAX request to set the search location to null if a region
+	 * is being passed as well.
+	 */
 	public function job_manager_get_listings_args( $args ) {
 		$params = array();
 
@@ -184,8 +185,7 @@ class Astoundify_Job_Manager_Regions {
 	}
 
 	/**
-	 * Append 'showing' text
-	 * @return string
+	 * Filter the AJAX to update the "showing" text. 
 	 */
 	public function custom_filter_text( $text ) {
 		$params = array();
@@ -200,8 +200,7 @@ class Astoundify_Job_Manager_Regions {
 	}
 
 	/**
-	 * apply_tag_filter_rss
-	 * @return array
+	 * Filter the AJAX request to update the RSS feed URL.
 	 */
 	public function custom_filter_rss( $args ) {
 		$params = array();
@@ -215,23 +214,9 @@ class Astoundify_Job_Manager_Regions {
 
 	/**
 	 * Loads the plugin language files
-	 *
-	 * @since 1.0.0
 	 */
 	public function load_textdomain() {
-		$locale = apply_filters( 'plugin_locale', get_locale(), $this->domain );
-		$mofile = sprintf( '%1$s-%2$s.mo', $this->domain, $locale );
-
-		$mofile_local = $this->lang_dir . $mofile;
-		$mofile_global = WP_LANG_DIR . '/' . $this->domain . '/' . $mofile;
-
-		if ( file_exists( $mofile_global ) ) {
-			return load_textdomain( $this->domain, $mofile_global );
-		} elseif ( file_exists( $mofile_local ) ) {
-			return load_textdomain( $this->domain, $mofile_local );
-		}
-
-		return false;
+		load_plugin_textdomain( 'wp-job-manager-locations', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 }
 add_action( 'plugins_loaded', array( 'Astoundify_Job_Manager_Regions', 'instance' ) );
