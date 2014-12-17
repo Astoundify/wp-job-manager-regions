@@ -7,7 +7,7 @@ Contributors: Astoundify, SpencerFinnell
 Tags: job, job listing, job region
 Requires at least: 3.6
 Tested up to: 4.1
-Stable Tag: 1.5.2
+Stable Tag: 1.6.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -16,6 +16,8 @@ Add predefined regions to WP Job Manager submission form.
 == Description ==
 
 Adds a "Job Region" taxonomy so the site administrator can control a set of predefined regions listings can be assigned to.
+
+**Note:** Listings are not filtered by regions. They are simply used as an organization tool.
 
 = Where can I use this? =
 
@@ -29,6 +31,12 @@ Astoundify has released the first fully integrated WP Job Manager theme. Check o
 == Frequently Asked Questions ==
 
 == Changelog ==
+
+= 1.6.0: December 17, 2014 =
+
+* New: Add a class to the theme's body tag so the location field can be hidden on term archive pages when filters are off.
+* New: Add a filter to allow dropdown arguments to be modified.
+* Fix: General code cleanup.
 
 = 1.5.2: November 25, 2014 =
 

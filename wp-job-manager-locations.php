@@ -5,7 +5,7 @@
  * Description: Create predefined regions/locations that job submissions can associate themselves with.
  * Author:      Astoundify
  * Author URI:  http://astoundify.com
- * Version:     1.5.2
+ * Version:     1.6.0
  * Text Domain: wp-job-manager-locations
  */
 
