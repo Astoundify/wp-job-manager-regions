@@ -92,6 +92,11 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 			return get_the_term_list( $post->ID, 'job_listing_region', '', ', ', '' );
 		} else {
 			$terms = wp_get_object_terms( $post->ID, 'job_listing_region' );
+			
+			if ( empty( $terms ) ) {
+				return;
+			}
+
 			$names = array();
 
 			foreach ( $terms as $term ) {
