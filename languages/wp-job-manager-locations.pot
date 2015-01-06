@@ -1,24 +1,24 @@
-# Copyright (C) 2014 WP Job Manager - Predefined Regions
-# This file is distributed under the same license as the WP Job Manager - Predefined Regions package.
+# Copyright (C) 2015 
+# This file is distributed under the same license as the  package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Job Manager - Predefined Regions 1.5.1\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-job-manager-locations\n"
-"POT-Creation-Date: 2014-10-13 14:44:02+00:00\n"
+"Project-Id-Version:  \n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-job-manager-regions\n"
+"POT-Creation-Date: 2015-01-06 15:06:36+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: includes/class-taxonomy.php:17 includes/class-template.php:41
+#: includes/class-taxonomy.php:17 includes/class-template.php:30
 msgid "Job Region"
 msgstr ""
 
 #: includes/class-taxonomy.php:18
 #: includes/widgets/class-widget-region-list.php:14
-#: wp-job-manager-locations.php:92
+#: wp-job-manager-locations.php:90
 msgid "Job Regions"
 msgstr ""
 
@@ -59,7 +59,7 @@ msgstr ""
 msgid "New %s Name"
 msgstr ""
 
-#: includes/class-template.php:58
+#: includes/class-template.php:50
 msgid "All Regions"
 msgstr ""
 
@@ -71,38 +71,14 @@ msgstr ""
 msgid "Title:"
 msgstr ""
 
-#: templates/form-fields/job-region-field.php:8
-msgctxt "show option none"
-msgid "&mdash;"
-msgstr ""
-
-#: wp-job-manager-locations.php:93
+#: wp-job-manager-locations.php:91
 msgid "Filter by Region"
 msgstr ""
 
-#: wp-job-manager-locations.php:94
+#: wp-job-manager-locations.php:92
 msgid "Use a dropdown instead of a text input."
 msgstr ""
 
-#: wp-job-manager-locations.php:172
+#: wp-job-manager-locations.php:197
 msgid "in %s"
-msgstr ""
-#. Plugin Name of the plugin/theme
-msgid "WP Job Manager - Predefined Regions"
-msgstr ""
-
-#. Plugin URI of the plugin/theme
-msgid "https://github.com/astoundify/wp-job-manager-regions/"
-msgstr ""
-
-#. Description of the plugin/theme
-msgid "Create predefined regions/locations that job submissions can associate themselves with."
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "Astoundify"
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "http://astoundify.com"
 msgstr ""
