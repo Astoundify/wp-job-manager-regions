@@ -1,0 +1,88 @@
+# Copyright (C) 2015 
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-job-manager-regions\n"
+"POT-Creation-Date: 2015-01-06 15:06:36+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-01-06 19:08+0100\n"
+"Last-Translator: Franco <franco@associazionejoint.org>\n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.7.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es_ES\n"
+
+#: includes/class-taxonomy.php:17 includes/class-template.php:30
+msgid "Job Region"
+msgstr "﻿Región del puesto"
+
+#: includes/class-taxonomy.php:18
+#: includes/widgets/class-widget-region-list.php:14
+#: wp-job-manager-locations.php:90
+msgid "Job Regions"
+msgstr "﻿Regiones disponibles"
+
+#: includes/class-taxonomy.php:22
+msgctxt "Job region slug - resave permalinks after changing this"
+msgid "job-region"
+msgstr "region-voluntariado"
+
+#: includes/class-taxonomy.php:39
+msgid "Search %s"
+msgstr "﻿Buscar %s"
+
+#: includes/class-taxonomy.php:40
+msgid "All %s"
+msgstr "﻿Todos %s"
+
+#: includes/class-taxonomy.php:41
+msgid "Parent %s"
+msgstr "﻿Padre %s"
+
+#: includes/class-taxonomy.php:42
+msgid "Parent %s:"
+msgstr "﻿Padres% s:"
+
+#: includes/class-taxonomy.php:43
+msgid "Edit %s"
+msgstr "Editar %s"
+
+#: includes/class-taxonomy.php:44
+msgid "Update %s"
+msgstr "﻿Actualizar %s"
+
+#: includes/class-taxonomy.php:45
+msgid "Add New %s"
+msgstr "Añadir nuevo/a %s"
+
+#: includes/class-taxonomy.php:46
+msgid "New %s Name"
+msgstr "﻿Nuevo nombre para %s"
+
+#: includes/class-template.php:50
+msgid "All Regions"
+msgstr "﻿Todas las regiones"
+
+#: includes/widgets/class-widget-region-list.php:12
+msgid "Display a list of job regions."
+msgstr "﻿Muestra una lista de regiones."
+
+#: includes/widgets/class-widget-region-list.php:19
+msgid "Title:"
+msgstr "﻿Título:"
+
+#: wp-job-manager-locations.php:91
+msgid "Filter by Region"
+msgstr "﻿Filtrar por región"
+
+#: wp-job-manager-locations.php:92
+msgid "Use a dropdown instead of a text input."
+msgstr "﻿Usa una lista desplegable en vez de un campo de texto."
+
+#: wp-job-manager-locations.php:197
+msgid "in %s"
+msgstr "﻿en %s"
+

@@ -67,13 +67,13 @@ class Astoundify_Job_Manager_Regions {
 	 * @return void
 	 */
 	private function setup_actions() {
+		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
+
 		add_filter( 'job_manager_settings', array( $this, 'job_manager_settings' ) );
 
 		add_filter( 'job_manager_output_jobs_defaults', array( $this, 'job_manager_output_jobs_defaults' ) );
 		add_filter( 'job_manager_get_listings', array( $this, 'job_manager_get_listings' ) );
 		add_filter( 'job_manager_get_listings_args', array( $this, 'job_manager_get_listings_args' ) );
-
-		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 	}
 
 	/**
@@ -216,10 +216,11 @@ class Astoundify_Job_Manager_Regions {
 	 * Loads the plugin language files
 	 */
 	public function load_textdomain() {
+		$locale = apply_filters( 'plugin_locale', get_locale(), 'wp-job-manager-locations' );
+		load_textdomain( 'wp-job-manager-locations', WP_LANG_DIR . "/wp-job-manager-locations/wp-job-manager-locations-$locale.mo" );
 		load_plugin_textdomain( 'wp-job-manager-locations', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 }
-add_action( 'plugins_loaded', array( 'Astoundify_Job_Manager_Regions', 'instance' ) );
 
 /**
  * Start things up.
@@ -233,3 +234,5 @@ add_action( 'plugins_loaded', array( 'Astoundify_Job_Manager_Regions', 'instance
 function wp_job_manager_regions() {
 	return Astoundify_Job_Manager_Regions::instance();
 }
+
+wp_job_manager_regions();
