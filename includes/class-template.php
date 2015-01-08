@@ -5,8 +5,12 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 	public function __construct() {
 		add_filter( 'submit_job_form_fields', array( $this, 'submit_job_form_fields' ) );
 		add_filter( 'the_job_location', array( $this, 'the_job_location' ), 10, 2 );
+		
+		add_action( 'wp', array( $this, 'sort' ) );
+	}
 
-		if ( get_option( 'job_manager_regions_filter' ) ) {
+	public function sort() {
+		if ( get_option( 'job_manager_regions_filter' ) || is_tax( 'job_listing_region' ) ) {
 			add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
 			add_action( 'job_manager_job_filters_search_jobs_end', array( $this, 'job_manager_job_filters_search_jobs_end' ) );
 		} else {
