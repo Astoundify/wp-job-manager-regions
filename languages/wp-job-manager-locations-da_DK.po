@@ -1,0 +1,88 @@
+# Copyright (C) 2015 
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Oversættelse af WP Job manager Locations\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-job-manager-regions\n"
+"POT-Creation-Date: 2015-01-06 15:06:36+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-01-09 14:11+0100\n"
+"Last-Translator: Nicklas Millard <n.millard@me.com>\n"
+"Language-Team: Venicura <info@venicura.dk>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: da_DK\n"
+"X-Generator: Poedit 1.7.1\n"
+
+#: includes/class-taxonomy.php:17 includes/class-template.php:30
+msgid "Job Region"
+msgstr "Job område"
+
+#: includes/class-taxonomy.php:18
+#: includes/widgets/class-widget-region-list.php:14
+#: wp-job-manager-locations.php:90
+msgid "Job Regions"
+msgstr "Job områder"
+
+#: includes/class-taxonomy.php:22
+msgctxt "Job region slug - resave permalinks after changing this"
+msgid "job-region"
+msgstr "job-område"
+
+#: includes/class-taxonomy.php:39
+msgid "Search %s"
+msgstr "Søg %s"
+
+#: includes/class-taxonomy.php:40
+msgid "All %s"
+msgstr "Alle %s"
+
+#: includes/class-taxonomy.php:41
+msgid "Parent %s"
+msgstr "Forældre %s"
+
+#: includes/class-taxonomy.php:42
+msgid "Parent %s:"
+msgstr "Forældre %s:"
+
+#: includes/class-taxonomy.php:43
+msgid "Edit %s"
+msgstr "Rediger %s"
+
+#: includes/class-taxonomy.php:44
+msgid "Update %s"
+msgstr "Opdater %s"
+
+#: includes/class-taxonomy.php:45
+msgid "Add New %s"
+msgstr "Tilføj ny %s"
+
+#: includes/class-taxonomy.php:46
+msgid "New %s Name"
+msgstr "Ny %s navn"
+
+#: includes/class-template.php:50
+msgid "All Regions"
+msgstr "Alle områder"
+
+#: includes/widgets/class-widget-region-list.php:12
+msgid "Display a list of job regions."
+msgstr "Vis en liste af job områder."
+
+#: includes/widgets/class-widget-region-list.php:19
+msgid "Title:"
+msgstr "Titel:"
+
+#: wp-job-manager-locations.php:91
+msgid "Filter by Region"
+msgstr "Filrer efter område"
+
+#: wp-job-manager-locations.php:92
+msgid "Use a dropdown instead of a text input."
+msgstr "Brug en dropdown i stedet for tekst input"
+
+#: wp-job-manager-locations.php:197
+msgid "in %s"
+msgstr "i %s"
+
