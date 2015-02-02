@@ -122,9 +122,9 @@ class Astoundify_Job_Manager_Regions {
 	public function job_manager_get_listings( $args ) {
 		$params = array();
 
-		if ( isset( $_POST[ 'form_data' ] ) ) {
+		if ( isset( $_REQUEST[ 'form_data' ] ) ) {
 
-			parse_str( $_POST[ 'form_data' ], $params );
+			parse_str( $_REQUEST[ 'form_data' ], $params );
 
 			if ( isset( $params[ 'search_region' ] ) && 0 != $params[ 'search_region' ] ) {
 				$region = $params[ 'search_region' ];
@@ -171,9 +171,9 @@ class Astoundify_Job_Manager_Regions {
 	public function job_manager_get_listings_args( $args ) {
 		$params = array();
 
-		if ( isset( $_POST[ 'form_data' ] ) ) {
+		if ( isset( $_REQUEST[ 'form_data' ] ) ) {
 
-			parse_str( $_POST[ 'form_data' ], $params );
+			parse_str( $_REQUEST[ 'form_data' ], $params );
 
 			if ( isset( $params[ 'search_region' ] ) && 0 != $params[ 'search_region' ] ) {
 				$args[ 'search_location' ] = null;
@@ -190,7 +190,7 @@ class Astoundify_Job_Manager_Regions {
 	public function custom_filter_text( $text ) {
 		$params = array();
 
-		parse_str( $_POST[ 'form_data' ], $params );
+		parse_str( $_REQUEST[ 'form_data' ], $params );
 
 		$term = get_term( $params[ 'search_region' ], 'job_listing_region' );
 
@@ -205,7 +205,7 @@ class Astoundify_Job_Manager_Regions {
 	public function custom_filter_rss( $args ) {
 		$params = array();
 
-		parse_str( $_POST[ 'form_data' ], $params );
+		parse_str( $_REQUEST[ 'form_data' ], $params );
 
 		$args[ 'job_region' ] = $params[ 'search_region' ];
 

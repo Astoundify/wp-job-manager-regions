@@ -31,6 +31,7 @@
 		addRegions: function() {
 			this.cache.$location.html( '' );
 			this.cache.$regions.detach().appendTo( this.cache.$location );
+			this.cache.$regions.removeClass( 'unlocated' ).addClass( 'located' );
 		},
 
 		updateResults: function() {
