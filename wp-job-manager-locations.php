@@ -96,7 +96,7 @@ class Astoundify_Job_Manager_Regions {
 		return $settings;
 	}
 
-	/** 
+	/**
 	 * Modify the default shortcode attributes for displaying listings.
 	 *
 	 * If we are on a listing region term archive set the selected_region so
@@ -146,6 +146,7 @@ class Astoundify_Job_Manager_Regions {
 			}
 
 		} elseif ( isset( $_GET[ 'selected_region' ] ) ) {
+
 			$region = $_GET[ 'selected_region' ];
 
 			if ( is_int( $region ) ) {
@@ -158,8 +159,20 @@ class Astoundify_Job_Manager_Regions {
 				'terms'    => $region,
 				'operator' => 'IN'
 			);
+
+		} elseif( isset( $_GET['alert_id'] ) ) { // WPJM Alerts support
+
+			$regions = wp_get_post_terms( $_GET['alert_id'], 'job_listing_region', array( 'fields' => 'ids' ) );
+			if ( ! empty( $regions ) ) {
+				$args[ 'tax_query' ][] = array(
+					'taxonomy' => 'job_listing_region',
+					'field'    => 'id',
+					'terms'    => $regions,
+					'operator' => 'IN'
+				);
+			}
+
 		}
-																	
 
 		return $args;
 	}
@@ -185,7 +198,7 @@ class Astoundify_Job_Manager_Regions {
 	}
 
 	/**
-	 * Filter the AJAX to update the "showing" text. 
+	 * Filter the AJAX to update the "showing" text.
 	 */
 	public function custom_filter_text( $text ) {
 		$params = array();
