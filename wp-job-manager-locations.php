@@ -174,7 +174,6 @@ class Astoundify_Job_Manager_Regions {
 
 		}
 
-
 		return $args;
 	}
 
