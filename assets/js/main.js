@@ -11,6 +11,7 @@
 		init: function() {
 			this.cacheElements();
 			this.bindEvents();
+			$( '#job_region' ).chosen();
 		},
 
 		cacheElements: function() {
