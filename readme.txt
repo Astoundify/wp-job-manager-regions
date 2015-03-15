@@ -40,7 +40,6 @@ Astoundify has released two themes that are fully integrated with the WP Job Man
 * Tweak: Use $_REQUEST to add support for 1.21.0 of WP Jon Manager.
 * Fix: Remove extra whitespace.
 
-
 = 1.7.0: January 8, 2015 =
 
 * New: Add es_ES translation.
