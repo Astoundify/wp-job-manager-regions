@@ -2,7 +2,7 @@
 
 Author URI: http://astoundify.com
 Plugin URI: http://astoundify.com
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=contact@appthemer.com&item_name=Donation+for+Astoundify WP Job Manager Regions
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=contact@astoundify.com&item_name=Donation+for+Astoundify WP Job Manager Regions
 Contributors: Astoundify, SpencerFinnell
 Tags: job, job listing, job region
 Requires at least: 3.6
