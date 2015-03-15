@@ -37,7 +37,7 @@ Astoundify has released two themes that are fully integrated with the WP Job Man
 * New: Add Chosen dropdown support.
 * New: Add WP Job Manager Alerts support.
 * New: Add Danish tranlsation.
-* Tweak: Use $_REQUEST to add support for 1.21.0 of WP Jon Manager.
+* Tweak: Use $_REQUEST to add support for 1.21.0 of WP Job Manager.
 * Fix: Remove extra whitespace.
 
 = 1.7.0: January 8, 2015 =
