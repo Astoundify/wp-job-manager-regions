@@ -7,7 +7,7 @@ Contributors: Astoundify, SpencerFinnell
 Tags: job, job listing, job region
 Requires at least: 3.6
 Tested up to: 4.1
-Stable Tag: 1.7.0
+Stable Tag: 1.7.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -31,6 +31,15 @@ Astoundify has released two themes that are fully integrated with the WP Job Man
 == Frequently Asked Questions ==
 
 == Changelog ==
+
+= 1.7.1: March 15, 2015 =
+
+* New: Add Chosen dropdown support.
+* New: Add WP Job Manager Alerts support.
+* New: Add Danish tranlsation.
+* Tweak: Use $_REQUEST to add support for 1.21.0 of WP Jon Manager.
+* Fix: Remove extra whitespace.
+
 
 = 1.7.0: January 8, 2015 =
 
