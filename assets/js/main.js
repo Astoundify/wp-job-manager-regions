@@ -37,7 +37,14 @@
 				location.html( '' );
 				location.removeClass( 'search_location' ).addClass( 'search_region' );
 
-				$(this).find( '#search_region_chosen' ).detach().appendTo(location);
+				var $chosen = $( this ).find( '#search_region_chosen' );
+				var $std = $(this).find( '#search_region' );
+
+				if ( $chosen.length ) {
+					$chosen.detach().appendTo(location);
+				} else {
+					$std.detach().appendTo(location);
+				}
 			});
 		},
 
