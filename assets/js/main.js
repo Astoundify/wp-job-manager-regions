@@ -5,7 +5,6 @@
 		cache: {
 			$document: $(document),
 			$window: $(window),
-			$search_jobs: $( '.search_jobs, .job_search_form' )
 		},
 
 		init: function() {
@@ -16,6 +15,8 @@
 			var self = this;
 
 			this.cache.$document.on( 'ready', function() {
+				self.$forms = $( '.search_jobs, .job_search_form' );
+
 				self.addSubmission();
 				self.addRegions();
 				self.updateResults();
@@ -28,11 +29,11 @@
 		},
 
 		addRegions: function() {
-			this.cache.$search_jobs.each(function(i, el) {
+			this.$forms.each(function(i, el) {
 				$(this).find( '.search_region' ).chosen();
 			});
 
-			this.cache.$search_jobs.each(function(i, el) {
+			this.$forms.each(function(i, el) {
 				var location = $(this).find( '.search_location' );
 				location.html( '' );
 				location.removeClass( 'search_location' ).addClass( 'search_region' );
@@ -49,7 +50,7 @@
 		},
 
 		updateResults: function() {
-			this.cache.$search_jobs.each(function(i, el) {
+			this.$forms.each(function(i, el) {
 				var region = $(this).find( '.search_region' );
 
 				region.on( 'change', function() {
@@ -72,3 +73,4 @@
 	jobRegions.init();
 
 })(jQuery);
+
