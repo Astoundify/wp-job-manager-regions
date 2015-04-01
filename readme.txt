@@ -7,7 +7,7 @@ Contributors: Astoundify
 Tags: job, job listing, job region
 Requires at least: 4.1
 Tested up to: 4.1.1
-Stable Tag: 1.7.2
+Stable Tag: 1.7.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -31,6 +31,11 @@ Astoundify has released two themes that are fully integrated with the WP Job Man
 == Frequently Asked Questions ==
 
 == Changelog ==
+
+= 1.7.3: April 1, 2015 =
+
+* Fix: Make sure the regions dropdown can always replace the location input.
+* Fix: Compatibility with WP Job Manager - Alerts.
 
 = 1.7.2: March 17, 2015 =
 
