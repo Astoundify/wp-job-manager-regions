@@ -96,7 +96,7 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 		if ( is_singular( 'job_listing' ) ) {
 			return get_the_term_list( $post->ID, 'job_listing_region', '', ', ', '' );
 		} else {
-			$terms = wp_get_object_terms( $post->ID, 'job_listing_region' );
+			$terms = wp_get_object_terms( $post->ID, 'job_listing_region', array( 'orderby' => 'term_order', 'order' => 'desc') );
 
 			if ( empty( $terms ) ) {
 				return;
