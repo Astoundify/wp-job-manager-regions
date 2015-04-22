@@ -5,6 +5,7 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 	public function __construct() {
 		add_filter( 'submit_job_form_fields', array( $this, 'submit_job_form_fields' ) );
 		add_filter( 'the_job_location', array( $this, 'the_job_location' ), 10, 2 );
+		add_filter( 'submit_job_form_fields_get_job_data', array( $this, 'submit_job_form_fields_get_job_data' ), 10, 2 );
 
 		add_action( 'wp', array( $this, 'sort' ) );
 	}
@@ -24,6 +25,16 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 	 */
 	public function wp_enqueue_scripts() {
 		wp_enqueue_script( 'job-regions', wp_job_manager_regions()->plugin_url . '/assets/js/main.js', array( 'jquery', 'chosen' ), 20140525, true );
+	}
+
+	public function submit_job_form_fields_get_job_data( $fields, $job ) {
+		$field = isset( $fields[ 'job' ][ 'job_region' ] ) ? $fields[ 'job' ][ 'job_region' ] : false;
+
+		if ( $field ) {
+			$fields[ 'job' ][ 'job_region' ][ 'value' ] = wp_get_object_terms( $job->ID, $field['taxonomy'], array( 'fields' => 'ids' ) );
+		}
+
+		return $fields;
 	}
 
 	/**
