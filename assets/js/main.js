@@ -15,7 +15,7 @@
 			var self = this;
 
 			this.cache.$document.on( 'ready', function() {
-				self.$forms = $( '.search_jobs, .job_search_form' );
+				self.$forms = $( '.search_jobs' );
 
 				self.addSubmission();
 				self.addRegions();
