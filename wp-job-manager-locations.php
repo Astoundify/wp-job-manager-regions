@@ -89,7 +89,7 @@ class Astoundify_Job_Manager_Regions {
 			'std'      => '0',
 			'label'    => __( 'Job Regions', 'wp-job-manager-locations' ),
 			'cb_label' => __( 'Filter by Region', 'wp-job-manager-locations' ),
-			'desc'     => __( 'Use a dropdown instead of a text input.' ),
+			'desc'     => __( 'Use a dropdown instead of a text input.', 'wp-job-manager-locations' ),
 			'type'     => 'checkbox'
 		);
 
