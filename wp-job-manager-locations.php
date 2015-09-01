@@ -72,7 +72,7 @@ class Astoundify_Job_Manager_Regions {
 		add_filter( 'job_manager_settings', array( $this, 'job_manager_settings' ) );
 
 		add_filter( 'job_manager_output_jobs_defaults', array( $this, 'job_manager_output_jobs_defaults' ) );
-		add_filter( 'job_manager_get_listings', array( $this, 'job_manager_get_listings' ) );
+		add_filter( 'job_manager_get_listings', array( $this, 'job_manager_get_listings' ), 10, 2 );
 		add_filter( 'job_manager_get_listings_args', array( $this, 'job_manager_get_listings_args' ) );
 	}
 
@@ -119,7 +119,7 @@ class Astoundify_Job_Manager_Regions {
 		return $defaults;
 	}
 
-	public function job_manager_get_listings( $args ) {
+	public function job_manager_get_listings( $query_args, $args ) {
 		$params = array();
 
 		if ( isset( $_REQUEST[ 'form_data' ] ) ) {
@@ -133,7 +133,7 @@ class Astoundify_Job_Manager_Regions {
 					$region = array( $region );
 				}
 
-				$args[ 'tax_query' ][] = array(
+				$query_args[ 'tax_query' ][] = array(
 					'taxonomy' => 'job_listing_region',
 					'field'    => 'id',
 					'terms'    => $region,
@@ -153,7 +153,7 @@ class Astoundify_Job_Manager_Regions {
 				$region = array( $region );
 			}
 
-			$args[ 'tax_query' ][] = array(
+			$query_args[ 'tax_query' ][] = array(
 				'taxonomy' => 'job_listing_region',
 				'field'    => 'id',
 				'terms'    => $region,
@@ -161,12 +161,13 @@ class Astoundify_Job_Manager_Regions {
 			);
 
 		} elseif( isset( $args['search_region'] ) ) { // WPJM Alerts support
+            $region = $args[ 'search_region' ];
 
 			if ( is_int( $args['search_region'] ) ) {
 				$region = array( $args['search_region'] );
 			}
 
-			$args[ 'tax_query' ][] = array(
+			$query_args[ 'tax_query' ][] = array(
 				'taxonomy' => 'job_listing_region',
 				'field'    => 'id',
 				'terms'    => $region,
@@ -175,7 +176,7 @@ class Astoundify_Job_Manager_Regions {
 
 		}
 
-		return $args;
+		return $query_args;
 	}
 
 	/**
