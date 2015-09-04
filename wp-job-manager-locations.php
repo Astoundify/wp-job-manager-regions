@@ -178,8 +178,6 @@ class Astoundify_Job_Manager_Regions {
 
         }
 
-		print_r( $query_args );
-
         return $query_args;
     }
 
