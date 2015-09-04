@@ -165,9 +165,9 @@ class Astoundify_Job_Manager_Regions {
         } elseif( isset( $args['search_region'] ) ) { // WPJM Alerts support
             $region = $args[ 'search_region' ];
 
-            if ( is_int( $args['search_region'] ) ) {
-                $region = array( $args['search_region'] );
-            }
+			if ( is_array( $region ) && empty( $region ) ) {
+				return $query_args;
+			}
 
             $query_args[ 'tax_query' ][] = array(
                 'taxonomy' => 'job_listing_region',
@@ -177,6 +177,8 @@ class Astoundify_Job_Manager_Regions {
             );
 
         }
+
+		print_r( $query_args );
 
         return $query_args;
     }
