@@ -25,7 +25,9 @@
     },
 
     addSubmission: function() {
-      $( '#job_region' ).chosen();
+      $( '#job_region' ).chosen({
+        search_contains: true
+      });
     },
 
     addRegions: function() {
@@ -41,7 +43,9 @@
         location.removeClass( 'search_location' ).addClass( 'search_region' );
 
         $regions.detach().appendTo(location);
-        $regions.chosen();
+        $regions.chosen({
+          search_contains: true
+        });
       });
     },
 
