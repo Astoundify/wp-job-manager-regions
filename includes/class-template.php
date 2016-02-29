@@ -11,8 +11,9 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 	}
 
 	public function sort() {
+		add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
+
 		if ( get_option( 'job_manager_regions_filter' ) || is_tax( 'job_listing_region' ) ) {
-			add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
 			add_action( 'job_manager_job_filters_search_jobs_end', array( $this, 'job_manager_job_filters_search_jobs_end' ) );
 		} else {
 			add_action( 'job_manager_job_filters_search_jobs_end', array( $this, 'tax_archive_field' ) );
