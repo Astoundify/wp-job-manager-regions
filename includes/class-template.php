@@ -105,22 +105,18 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 	 * @since 1.0.0
 	 */
 	public function the_job_location( $job_location, $post ) {
-		if ( is_singular( 'job_listing' ) ) {
-			return get_the_term_list( $post->ID, 'job_listing_region', '', ', ', '' );
-		} else {
-			$terms = wp_get_object_terms( $post->ID, 'job_listing_region', array( 'orderby' => 'term_order', 'order' => 'desc') );
+		$terms = wp_get_object_terms( $post->ID, 'job_listing_region', array( 'orderby' => 'term_order', 'order' => 'desc') );
 
-			if ( empty( $terms ) ) {
-				return;
-			}
-
-			$names = array();
-
-			foreach ( $terms as $term ) {
-				$names[] = $term->name;
-			}
-
-			return implode( ', ', $names );
+		if ( empty( $terms ) ) {
+			return;
 		}
+
+		$names = array();
+
+		foreach ( $terms as $term ) {
+			$names[] = $term->name;
+		}
+
+		return implode( ', ', $names );
 	}
 }
