@@ -25,7 +25,7 @@
     },
 
     addSubmission: function() {
-      $( '#job_region' ).chosen({
+      $( '#job_region, #resume_region' ).chosen({
         search_contains: true
       });
     },
