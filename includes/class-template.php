@@ -8,6 +8,7 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 		add_filter( 'the_job_location', array( $this, 'the_job_location' ), 10, 2 );
 		add_filter( 'submit_job_form_fields_get_job_data', array( $this, 'submit_job_form_fields_get_job_data' ), 10, 2 );
 		add_filter( 'submit_resume_form_fields_get_resume_data', array( $this, 'submit_resume_form_fields_get_resume_data' ), 10, 2 );
+		add_filter( 'job_manager_term_select_field_wp_dropdown_categories_args', array( $this, 'job_manager_term_select_field_wp_dropdown_categories_args' ), 10, 3 );
 
 		add_action( 'wp', array( $this, 'sort' ) );
 	}
@@ -97,6 +98,12 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 			'hide_empty' => 0,
 			'selected' => isset( $atts[ 'selected_region' ] ) ? $atts[ 'selected_region' ] : ''
 		) ) );
+	}
+
+	public function job_manager_term_select_field_wp_dropdown_categories_args( $args, $key, $field ) {
+		$args['show_option_none'] = __( 'Select Region', 'wp-job-manager-locations' );
+		$args['option_none_value'] = '';
+		return $args;
 	}
 
 	/**
