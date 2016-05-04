@@ -5,7 +5,9 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 	public function __construct() {
 		add_filter( 'submit_job_form_fields', array( $this, 'submit_job_form_fields' ) );
 		add_filter( 'submit_resume_form_fields', array( $this, 'submit_resume_form_fields' ) );
-		add_filter( 'the_job_location', array( $this, 'the_job_location' ), 10, 2 );
+		if ( get_option( 'job_manager_enable_regions_filter' ) ) {
+			add_filter( 'the_job_location', array( $this, 'the_job_location' ), 10, 2 );
+		}
 		add_filter( 'submit_job_form_fields_get_job_data', array( $this, 'submit_job_form_fields_get_job_data' ), 10, 2 );
 		add_filter( 'submit_resume_form_fields_get_resume_data', array( $this, 'submit_resume_form_fields_get_resume_data' ), 10, 2 );
 		add_filter( 'job_manager_term_select_field_wp_dropdown_categories_args', array( $this, 'job_manager_term_select_field_wp_dropdown_categories_args' ), 10, 3 );
