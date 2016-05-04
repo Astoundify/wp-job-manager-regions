@@ -89,17 +89,17 @@ class Astoundify_Job_Manager_Regions {
         $settings[ 'job_listings' ][1][] = array(
             'name'     => 'job_manager_enable_regions_filter',
             'std'      => '1',
-            'label'    => __( 'Regions Filter', 'wp-job-manager-locations' ),
-            'cb_label' => __( 'Enable filtering by region', 'wp-job-manager-locations' ),
-            'desc'     => __( 'Check this option to enable filtering of the job listings location.', 'wp-job-manager-locations' ),
+            'label'    => __( 'Filter Location Display', 'wp-job-manager-locations' ),
+            'cb_label' => __( 'Display Region', 'wp-job-manager-locations' ),
+            'desc'     => __( 'Replace the entered address with the selected region on output.', 'wp-job-manager-locations' ),
             'type'     => 'checkbox'
         );
         $settings[ 'job_listings' ][1][] = array(
             'name'     => 'job_manager_regions_filter',
             'std'      => '0',
-            'label'    => __( 'Job Regions', 'wp-job-manager-locations' ),
-            'cb_label' => __( 'Filter by Region', 'wp-job-manager-locations' ),
-            'desc'     => __( 'Use a dropdown instead of a text input.', 'wp-job-manager-locations' ),
+            'label'    => __( 'Search by Region', 'wp-job-manager-locations' ),
+            'cb_label' => __( 'Search by Region', 'wp-job-manager-locations' ),
+            'desc'     => __( 'Use a dropdown of defined regions instead of a text input. Disables radius search.', 'wp-job-manager-locations' ),
             'type'     => 'checkbox'
         );
 
