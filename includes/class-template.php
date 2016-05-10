@@ -57,7 +57,7 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 		$fields[ 'resume_fields' ][ 'resume_region' ] = array(
 			'label'       => __( 'Region', 'wp-job-manager-locations' ),
 			'type'        => 'term-select',
-			'taxonomy'    => 'job_listing_region',
+			'taxonomy'    => 'resume_region',
 			'required'    => true,
 			'priority'    => '2.5',
 			'default'     => -1

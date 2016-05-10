@@ -69,6 +69,7 @@ class Astoundify_Job_Manager_Regions {
     private function setup_actions() {
         add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 
+        /* Job Manager */
         add_filter( 'job_manager_settings', array( $this, 'job_manager_settings' ) );
 
         add_filter( 'job_manager_output_jobs_defaults', array( $this, 'job_manager_output_jobs_defaults' ) );
@@ -76,6 +77,13 @@ class Astoundify_Job_Manager_Regions {
         add_filter( 'job_manager_get_listings_args', array( $this, 'job_manager_get_listings_args' ) );
 
         add_filter( 'job_feed_args', array( $this, 'job_feed_args' ) );
+
+        /* Resumes */
+        add_filter( 'resume_manager_settings', array( $this, 'resume_manager_settings' ) );
+
+        add_filter( 'resume_manager_output_resumes_defaults', array( $this, 'resume_manager_output_resumes_defaults' ) );
+        add_filter( 'resume_manager_get_resumes', array( $this, 'resume_manager_get_resumes' ), 10, 2 );
+        add_filter( 'resume_manager_get_resumes_args', array( $this, 'job_manager_get_listings_args' ) );
     }
 
     /**
@@ -85,7 +93,7 @@ class Astoundify_Job_Manager_Regions {
      *
      * @return void
      */
-    public function job_manager_settings($settings) {
+    public function job_manager_settings( $settings ) {
         $settings[ 'job_listings' ][1][] = array(
             'name'     => 'job_manager_enable_regions_filter',
             'std'      => '1',
@@ -106,6 +114,27 @@ class Astoundify_Job_Manager_Regions {
         return $settings;
     }
 
+    public function resume_manager_settings( $settings ) {
+        $settings[ 'resume_listings' ][1][] = array(
+            'name'     => 'resume_manager_enable_regions_filter',
+            'std'      => '1',
+            'label'    => __( 'Filter Location Display', 'wp-job-manager-locations' ),
+            'cb_label' => __( 'Display Region', 'wp-job-manager-locations' ),
+            'desc'     => __( 'Replace the entered address with the selected region on output.', 'wp-job-manager-locations' ),
+            'type'     => 'checkbox'
+        );
+        $settings[ 'resume_listings' ][1][] = array(
+            'name'     => 'resume_manager_regions_filter',
+            'std'      => '0',
+            'label'    => __( 'Search by Region', 'wp-job-manager-locations' ),
+            'cb_label' => __( 'Search by Region', 'wp-job-manager-locations' ),
+            'desc'     => __( 'Use a dropdown of defined regions instead of a text input. Disables radius search.', 'wp-job-manager-locations' ),
+            'type'     => 'checkbox'
+        );
+
+        return $settings;
+    }
+
     /**
      * Modify the default shortcode attributes for displaying listings.
      *
@@ -116,6 +145,23 @@ class Astoundify_Job_Manager_Regions {
         $defaults[ 'selected_region' ] = '';
 
         if ( is_tax( 'job_listing_region' ) ) {
+            $type = get_queried_object();
+
+            if ( ! $type ) {
+                return $defaults;
+            }
+
+            $defaults[ 'show_categories' ] = true;
+            $defaults[ 'selected_region' ] = $type->term_id;
+        }
+
+        return $defaults;
+    }
+
+    public function resume_manager_output_resumes_defaults( $defaults ) {
+        $defaults[ 'selected_region' ] = '';
+
+        if ( is_tax( 'resume_region' ) ) {
             $type = get_queried_object();
 
             if ( ! $type ) {
@@ -189,6 +235,65 @@ class Astoundify_Job_Manager_Regions {
         return $query_args;
     }
 
+    public function resume_manager_get_resumes( $query_args, $args ) {
+        $params = array();
+
+        if ( isset( $_REQUEST[ 'form_data' ] ) ) {
+
+            parse_str( $_REQUEST[ 'form_data' ], $params );
+
+            if ( isset( $params[ 'search_region' ] ) && 0 != $params[ 'search_region' ] ) {
+                $region = $params[ 'search_region' ];
+
+                if ( is_int( $region ) ) {
+                    $region = array( $region );
+                }
+
+                $query_args[ 'tax_query' ][] = array(
+                    'taxonomy' => 'resume_region',
+                    'field'    => 'id',
+                    'terms'    => $region,
+                    'operator' => 'IN'
+                );
+
+                add_filter( 'resume_manager_get_resumes_custom_filter', '__return_true' );
+                add_filter( 'resume_manager_get_resumes_custom_filter_text', array( $this, 'resume_custom_filter_text' ) );
+            }
+
+        } elseif ( isset( $_GET[ 'selected_region' ] ) ) {
+
+            $region = $_GET[ 'selected_region' ];
+
+            if ( is_int( $region ) ) {
+                $region = array( $region );
+            }
+
+            $query_args[ 'tax_query' ][] = array(
+                'taxonomy' => 'resume_region',
+                'field'    => 'id',
+                'terms'    => $region,
+                'operator' => 'IN'
+            );
+
+        } elseif( isset( $args['search_region'] ) ) { // WPJM Alerts support
+            $region = $args[ 'search_region' ];
+
+            if ( is_array( $region ) && empty( $region ) ) {
+                return $query_args;
+            }
+
+            $query_args[ 'tax_query' ][] = array(
+                'taxonomy' => 'resume_region',
+                'field'    => 'id',
+                'terms'    => $region,
+                'operator' => 'IN'
+            );
+
+        }
+
+        return $query_args;
+    }
+
     /**
      * Filter the AJAX request to set the search location to null if a region
      * is being passed as well.
@@ -218,6 +323,18 @@ class Astoundify_Job_Manager_Regions {
         parse_str( $_REQUEST[ 'form_data' ], $params );
 
         $term = get_term( $params[ 'search_region' ], 'job_listing_region' );
+
+        $text .= sprintf( ' ' .  __( 'in %s', 'wp-job-manager-locations' ) . ' ', $term->name );
+
+        return $text;
+    }
+
+    public function resume_custom_filter_text( $text ) {
+        $params = array();
+
+        parse_str( $_REQUEST[ 'form_data' ], $params );
+
+        $term = get_term( $params[ 'search_region' ], 'resume_region' );
 
         $text .= sprintf( ' ' .  __( 'in %s', 'wp-job-manager-locations' ) . ' ', $term->name );
 
