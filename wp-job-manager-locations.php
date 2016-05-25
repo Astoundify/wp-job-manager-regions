@@ -39,7 +39,7 @@ class Astoundify_Job_Manager_Regions {
         $this->file         = __FILE__;
         $this->basename     = plugin_basename( $this->file );
         $this->plugin_dir   = plugin_dir_path( $this->file );
-        $this->plugin_url   = plugin_dir_url ( $this->file );
+        $this->plugin_url   = set_url_scheme( plugin_dir_url ( $this->file ), is_ssl() ? 'https' : 'http' );
         $this->lang_dir     = trailingslashit( $this->plugin_dir . 'languages' );
         $this->domain       = 'wp-job-manager-locations';
 
