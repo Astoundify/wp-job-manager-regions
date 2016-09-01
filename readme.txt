@@ -39,7 +39,6 @@ Astoundify has released two themes that are fully integrated with the WP Job Man
 * New: add in new taxonomy for resumes
 * Fix: Remove trailing slash and account for https
 * Fix: Update settings strings
-* Fix: Remove trailing slash and account for https
 
 = 1.10.0: February 5, 2016 =
 
