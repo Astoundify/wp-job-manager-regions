@@ -7,7 +7,7 @@ Contributors: Astoundify
 Tags: job, job listing, job region
 Requires at least: 4.4 
 Tested up to: 4.6
-Stable Tag: 1.10.0
+Stable Tag: 1.11.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -31,6 +31,15 @@ Astoundify has released two themes that are fully integrated with the WP Job Man
 == Frequently Asked Questions ==
 
 == Changelog ==
+
+= 1.11.0: September 1, 2016 =
+
+* New: Tested up to: WordPress 4.6
+* New: add in option to disable filtering location
+* New: add in new taxonomy for resumes
+* Fix: Remove trailing slash and account for https
+* Fix: Update settings strings
+* Fix: Remove trailing slash and account for https
 
 = 1.10.0: February 5, 2016 =
 
