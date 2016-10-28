@@ -103,8 +103,13 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 	}
 
 	public function job_manager_term_select_field_wp_dropdown_categories_args( $args, $key, $field ) {
+		if ( 'job_region' !== $key ) {
+			return $args;
+		}
+
 		$args['show_option_none'] = __( 'Select Region', 'wp-job-manager-locations' );
 		$args['option_none_value'] = '';
+
 		return $args;
 	}
 
