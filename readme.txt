@@ -6,8 +6,8 @@ Donate link: https://www.paypal.me/astoundify
 Contributors: Astoundify
 Tags: job, job listing, job region
 Requires at least: 4.4 
-Tested up to: 4.6
-Stable Tag: 1.11.0
+Tested up to: 4.7
+Stable Tag: 1.12.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -31,6 +31,12 @@ Astoundify has released two themes that are fully integrated with the WP Job Man
 == Frequently Asked Questions ==
 
 == Changelog ==
+
+= 1.12.0: January 10, 2017 =
+
+* New: Tested up to: WordPress 4.7
+* Fix: String updates.
+* Fix: Only adjust placeholder on our current field.
 
 = 1.11.0: September 1, 2016 =
 
