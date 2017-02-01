@@ -32,7 +32,7 @@ Astoundify has released two themes that are fully integrated with the WP Job Man
 
 == Changelog ==
 
-= 1.12.0: February 1, 2017 =
+= 1.12.1: February 1, 2017 =
 
 * Fix: Tested up to: WordPress 4.7.2
 * Fix: Move .pot translation file to /languages directory
