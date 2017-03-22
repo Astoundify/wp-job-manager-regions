@@ -6,7 +6,8 @@
   "dependencies": {
     "grunt-cli": "^0.1.13",
     "grunt": "^0.4.5",
-    "grunt-wp-i18n": "^0.5.3"
+    "grunt-wp-i18n": "^0.5.3",
+    "grunt-checktextdomain": "^1.0.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
