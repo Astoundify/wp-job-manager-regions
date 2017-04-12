@@ -1,13 +1,12 @@
-=== WP Job Manager - Predefined Regions ===
-
+=== Regions for WP Job Manager ===
 Author URI: http://astoundify.com
-Plugin URI: http://astoundify.com
+Plugin URI: https://astoundify.com/products/wp-job-manager-regions/
 Donate link: https://www.paypal.me/astoundify
 Contributors: Astoundify
 Tags: job, job listing, job region
 Requires at least: 4.7.0
-Tested up to: 4.7.2
-Stable Tag: 1.12.1
+Tested up to: 4.7.3
+Stable Tag: 1.13.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -31,6 +30,11 @@ Astoundify has released two themes that are fully integrated with the WP Job Man
 == Frequently Asked Questions ==
 
 == Changelog ==
+
+= 1.13.0: April 12, 2017 =
+
+* New: Update README.
+* Fix: Update plugin strings.
 
 = 1.12.1: February 1, 2017 =
 
