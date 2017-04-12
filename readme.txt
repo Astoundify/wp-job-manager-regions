@@ -6,7 +6,7 @@ Contributors: Astoundify
 Tags: job, job listing, job region
 Requires at least: 4.7.0
 Tested up to: 4.7.3
-Stable Tag: 1.13.1
+Stable Tag: 1.13.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
