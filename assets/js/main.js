@@ -1,78 +1,92 @@
 (function($) {
-  'use strict';
+	'use strict';
 
-  var jobRegions = {
-    cache: {
-      $document: $(document),
-      $window: $(window),
-    },
+	var jobRegions = {
+		cache: {
+			$document: $(document),
+			$window: $(window),
+		},
 
-    init: function() {
-      this.bindEvents();
-    },
+		init: function() {
+			this.bindEvents();
+		},
 
-    bindEvents: function() {
-      var self = this;
+		bindEvents: function() {
+			var self = this;
 
-      this.cache.$document.on( 'ready', function() {
-        self.$forms = $( '.search_jobs' );
+			this.cache.$document.on( 'ready', function() {
+				self.$forms = $( '.search_jobs' );
 
-        self.addSubmission();
-        self.addRegions();
-        self.updateResults();
-        self.resetResults();
-      });
-    },
+				self.addSubmission();
+				self.addRegions();
+				self.updateResults();
+				self.resetResults();
+			});
+		},
 
-    addSubmission: function() {
-      $( '#job_region, #resume_region' ).chosen({
-        search_contains: true
-      });
-    },
+		addSubmission: function() {
+			$( '#job_region, #resume_region' ).chosen({
+				search_contains: true
+			});
+		},
 
-    addRegions: function() {
-      this.$forms.each(function(i, el) {
-        var $regions = $(el).find( 'select.search_region' );
+		addRegions: function() {
+			this.$forms.each(function(i, el) {
+				var wrapper = false;
+				var $regions = $(el).find( 'select.search_region' );
 
-        if ( ! $regions.length ) {
-          return;
-        }
+				// Grab Listify's wrapper element.
+				if ( $regions.parent().hasClass( 'select' ) ) {
+					wrapper = true;
+					$regions = $regions.parent();
+				}
 
-        var location = $(el).find( '.search_location' );
-        location.html( '' );
-        location.removeClass( 'search_location' ).addClass( 'search_region' );
+				if ( ! $regions.length ) {
+					return;
+				}
 
-        $regions.detach().appendTo(location);
-        $regions.chosen({
-          search_contains: true
-        });
-      });
-    },
+				var location = $(el).find( '.search_location' );
+				location.html( '' );
+				location.removeClass( 'search_location' ).addClass( 'search_region' );
 
-    updateResults: function() {
-      this.$forms.each(function(i, el) {
-        var region = $(this).find( '.search_region' );
+				$regions.detach().appendTo(location);
 
-        region.on( 'change', function() {
-          var target = $(this).closest( 'div.job_listings' );
+				var args = {
+						search_contains: true
+				};
 
-          target.trigger( 'update_results', [ 1, false ] );
-        });
-      });
-    },
+				if ( ! wrapper ) {
+					$regions.chosen( args );
+				} else {
+					$regions.children( 'select' ).chosen( args );
+				}
+			});
+		},
 
-    resetResults: function() {
-      var self = this;
+		updateResults: function() {
+			this.$forms.each(function(i, el) {
+				var region = $(this).find( '.search_region' );
 
-      $( '.job_listings' ).on( 'reset', function() {
-        self.$forms.each(function(i, el) {
-          var $regions = $(el).find( 'select.search_region' );
-          $regions.val(0).trigger( 'change' ).trigger( 'chosen:updated' );
-        });
-      });
-    }
-  };
+				region.on( 'change', function() {
+					var target = $(this).closest( 'div.job_listings' );
 
-  jobRegions.init();
+					target.trigger( 'update_results', [ 1, false ] );
+				});
+			});
+		},
+
+		resetResults: function() {
+			var self = this;
+
+			$( '.job_listings' ).on( 'reset', function() {
+				self.$forms.each(function(i, el) {
+					var $regions = $(el).find( 'select.search_region' );
+					$regions.val(0).trigger( 'change' ).trigger( 'chosen:updated' );
+				});
+			});
+		}
+	};
+
+	jobRegions.init();
 
 })(jQuery);
