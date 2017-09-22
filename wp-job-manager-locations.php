@@ -6,6 +6,8 @@
  * Author:      Astoundify
  * Author URI:  http://astoundify.com
  * Version:     1.14.0
+ * License: GPLv3 or later
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain: wp-job-manager-locations
  * Domain Path: /languages
  */
