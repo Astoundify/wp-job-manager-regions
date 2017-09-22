@@ -5,14 +5,17 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 	public function __construct() {
 		add_filter( 'submit_job_form_fields', array( $this, 'submit_job_form_fields' ) );
 		add_filter( 'submit_resume_form_fields', array( $this, 'submit_resume_form_fields' ) );
+
 		if ( get_option( 'job_manager_enable_regions_filter' ) ) {
 			add_filter( 'the_job_location', array( $this, 'the_job_location' ), 10, 2 );
 		}
 		if ( get_option( 'resume_manager_enable_regions_filter' ) ) {
 			add_filter( 'the_candidate_location', array( $this, 'the_candidate_location' ), 10, 2 );
 		}
+
 		add_filter( 'submit_job_form_fields_get_job_data', array( $this, 'submit_job_form_fields_get_job_data' ), 10, 2 );
 		add_filter( 'submit_resume_form_fields_get_resume_data', array( $this, 'submit_resume_form_fields_get_resume_data' ), 10, 2 );
+
 		add_filter( 'job_manager_term_select_field_wp_dropdown_categories_args', array( $this, 'job_manager_term_select_field_wp_dropdown_categories_args' ), 10, 3 );
 
 		add_action( 'wp', array( $this, 'sort' ) );
@@ -25,6 +28,13 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 			add_action( 'job_manager_job_filters_search_jobs_end', array( $this, 'job_manager_job_filters_search_jobs_end' ) );
 		} else {
 			add_action( 'job_manager_job_filters_search_jobs_end', array( $this, 'tax_archive_field' ) );
+			add_filter( 'body_class', array( $this, 'body_class' ) );
+		}
+
+		if ( get_option( 'resume_manager_regions_filter' ) || is_tax( 'resume_region' ) ) {
+			add_action( 'resume_manager_resume_filters_search_resumes_end', array( $this, 'resume_manager_resume_filters_search_resumes_end' ) );
+		} else {
+			add_action( 'resume_manager_resume_filters_search_resumes_end', array( $this, 'tax_archive_field' ) );
 			add_filter( 'body_class', array( $this, 'body_class' ) );
 		}
 	}
@@ -98,6 +108,26 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 			'hierarchical' => true,
 			'orderby' => 'name',
 			'taxonomy' => 'job_listing_region',
+			'name' => 'search_region',
+			'class' => 'search_region',
+			'hide_empty' => 0,
+			'selected' => isset( $atts[ 'selected_region' ] ) ? $atts[ 'selected_region' ] : ''
+		) ) );
+	}
+
+	/**
+	 * Add the field to the filters
+	 */
+	public function resume_manager_resume_filters_search_resumes_end( $atts ) {
+		if ( ( ! isset( $atts[ 'selected_region' ] ) || '' == $atts[ 'selected_region' ] ) && isset( $_GET[ 'search_region' ] ) ) {
+			$atts[ 'selected_region' ] = absint( $_GET[ 'search_region' ] );
+		}
+
+		wp_dropdown_categories( apply_filters( 'resume_manager_regions_dropdown_args', array(
+			'show_option_all' => __( 'All Regions', 'wp-job-manager-locations' ),
+			'hierarchical' => true,
+			'orderby' => 'name',
+			'taxonomy' => 'resume_region',
 			'name' => 'search_region',
 			'class' => 'search_region',
 			'hide_empty' => 0,
