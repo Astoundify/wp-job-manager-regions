@@ -8,6 +8,9 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 		if ( get_option( 'job_manager_enable_regions_filter' ) ) {
 			add_filter( 'the_job_location', array( $this, 'the_job_location' ), 10, 2 );
 		}
+		if ( get_option( 'resume_manager_enable_regions_filter' ) ) {
+			add_filter( 'the_candidate_location', array( $this, 'the_candidate_location' ), 10, 2 );
+		}
 		add_filter( 'submit_job_form_fields_get_job_data', array( $this, 'submit_job_form_fields_get_job_data' ), 10, 2 );
 		add_filter( 'submit_resume_form_fields_get_resume_data', array( $this, 'submit_resume_form_fields_get_resume_data' ), 10, 2 );
 		add_filter( 'job_manager_term_select_field_wp_dropdown_categories_args', array( $this, 'job_manager_term_select_field_wp_dropdown_categories_args' ), 10, 3 );
@@ -148,6 +151,31 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 			return get_the_term_list( $post->ID, 'job_listing_region', '', ', ', '' );
 		} else {
 			$terms = wp_get_object_terms( $post->ID, 'job_listing_region', array( 'orderby' => 'term_order', 'order' => 'desc') );
+
+			if ( empty( $terms ) ) {
+				return;
+			}
+
+			$names = array();
+
+			foreach ( $terms as $term ) {
+				$names[] = $term->name;
+			}
+
+			return implode( ', ', $names );
+		}
+	}
+
+	/**
+	 * Replace location output with the region.
+	 *
+	 * @since 1.15.0
+	 */
+	public function the_candidate_location( $job_location, $post ) {
+		if ( is_singular( 'resume' ) ) {
+			return strip_tags( get_the_term_list( $post->ID, 'resume_region', '', ', ', '' ) );
+		} else {
+			$terms = wp_get_object_terms( $post->ID, 'resume_region', array( 'orderby' => 'term_order', 'order' => 'desc') );
 
 			if ( empty( $terms ) ) {
 				return;
