@@ -1,12 +1,12 @@
 <?php
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
-    exit();
+	exit();
 }
 
 $options = array(
-    'job_manager_regions_filter'
+	'job_manager_regions_filter'
 );
 
 foreach ( $options as $option ) {
-    delete_option( $option );
+	delete_option( $option );
 }

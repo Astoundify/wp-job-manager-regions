@@ -1,7 +1,22 @@
 <?php
+/**
+ * Template
+ *
+ * @since 1.0.0
+ */
 
+/**
+ * Regions Template
+ *
+ * @since 1.0.0
+ */
 class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Regions {
 
+	/**
+	 * Constructor.
+	 *
+	 * @since 1.0.0
+	 */
 	public function __construct() {
 		add_filter( 'submit_job_form_fields', array( $this, 'submit_job_form_fields' ) );
 		add_filter( 'submit_resume_form_fields', array( $this, 'submit_resume_form_fields' ) );
@@ -15,6 +30,11 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 		add_action( 'wp', array( $this, 'sort' ) );
 	}
 
+	/**
+	 * Sort
+	 *
+	 * @since 1.0.0
+	 */
 	public function sort() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
 
@@ -28,11 +48,18 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 
 	/**
 	 * Frontend scripts.
+	 *
+	 * @since 1.0.0
 	 */
 	public function wp_enqueue_scripts() {
 		wp_enqueue_script( 'job-regions', wp_job_manager_regions()->plugin_url . 'assets/js/main.js', array( 'jquery', 'chosen' ), 20140525, true );
 	}
 
+	/**
+	 * Resume Fields Data
+	 *
+	 * @since 1.0.0
+	 */
 	public function submit_resume_form_fields_get_resume_data( $fields, $job ) {
 		$field = isset( $fields[ 'resume_fields' ][ 'resume_region' ] ) ? $fields[ 'resume_fields' ][ 'resume_region' ] : false;
 
@@ -43,6 +70,11 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 		return $fields;
 	}
 
+	/**
+	 * Jobs Fields Data
+	 *
+	 * @since 1.0.0
+	 */
 	public function submit_job_form_fields_get_job_data( $fields, $job ) {
 		$field = isset( $fields[ 'job' ][ 'job_region' ] ) ? $fields[ 'job' ][ 'job_region' ] : false;
 
@@ -53,6 +85,11 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 		return $fields;
 	}
 
+	/**
+	 * Resume Form Fields
+	 *
+	 * @since 1.0.0
+	 */
 	public function submit_resume_form_fields( $fields ) {
 		$fields[ 'resume_fields' ][ 'resume_region' ] = array(
 			'label'       => __( 'Region', 'wp-job-manager-locations' ),
@@ -67,7 +104,9 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 	}
 
 	/**
-	 * Add the field to the submission form.
+	 * Job Form Fields
+	 *
+	 * @since 1.0.0
 	 */
 	public function submit_job_form_fields( $fields ) {
 		$fields[ 'job' ][ 'job_region' ] = array(
@@ -83,7 +122,9 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 	}
 
 	/**
-	 * Add the field to the filters
+	 * Add the field to the filters.
+	 *
+	 * @since 1.0.0
 	 */
 	public function job_manager_job_filters_search_jobs_end( $atts ) {
 		if ( ( ! isset( $atts[ 'selected_region' ] ) || '' == $atts[ 'selected_region' ] ) && isset( $_GET[ 'search_region' ] ) ) {
@@ -129,6 +170,8 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 	/**
 	 * If we are not using regions on the filter set a body class so themes can hide the text
 	 * input field so they don't have false thoughts about searching.
+	 *
+	 * @since 1.0.0
 	 */
 	public function body_class( $classes ) {
 		if ( is_tax( 'job_listing_region' ) ) {

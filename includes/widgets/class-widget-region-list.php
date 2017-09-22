@@ -1,7 +1,14 @@
 <?php
+/**
+ * Regions Widget
+ *
+ * @since 1.0.0
+ */
 
 /**
- * Simple list
+ * Regions Widget
+ *
+ * @since 1.0.0
  */
 class Astoundify_Job_Manager_Regions_Widget_List extends Jobify_Widget {
 	/**

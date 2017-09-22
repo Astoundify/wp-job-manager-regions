@@ -1,13 +1,28 @@
 <?php
+/**
+ * Taxonomy
+ *
+ * @since 1.0.0
+ */
 
+/**
+ * Region Taxonomy
+ *
+ * @since 1.0.0
+ */
 class Astoundify_Job_Manager_Regions_Taxonomy extends Astoundify_Job_Manager_Regions {
 
+	/**
+	 * Constructor
+	 *
+	 * @since 1.0.0
+	 */
 	public function __construct() {
 		add_action( 'init', array( $this, 'register_taxonomy' ), 0 );
 	}
 
 	/**
-	 * Create the `job_listing_region` taxonomy.
+	 * Create the `job_listing_region` and `resume_region` taxonomy.
 	 *
 	 * @since 1.0.0
 	 */
