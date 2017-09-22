@@ -17,26 +17,42 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/* Constants
+------------------------------------------ */
+
+define( 'WPJMREGIONS_VERSION', '1.14.0' );
+define( 'WPJMREGIONS_URL', trailingslashit( plugin_dir_url( __FILE__ ) ) );
+define( 'WPJMREGIONS_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
+define( 'WPJMREGIONS_PLUGIN', plugin_basename( __FILE__ ) );
+define( 'WPJMREGIONS_FILE', __FILE__ );
+
+/* Class
+------------------------------------------ */
+
 /**
  * Job Manager Regions
  *
- * @since unknown
+ * @since 1.0.0
  */
 class Astoundify_Job_Manager_Regions {
 
 	/**
+	 * Class Instance
+	 *
+	 * since 1.0.0
 	 * @var $instance
 	 */
 	private static $instance;
 
 	/**
 	 * Make sure only one instance is only running.
+	 *
+	 * @since 1.0.0
 	 */
 	public static function instance() {
 		if ( ! isset ( self::$instance ) ) {
 			self::$instance = new self;
 		}
-
 		return self::$instance;
 	}
 
@@ -46,27 +62,9 @@ class Astoundify_Job_Manager_Regions {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		$this->file         = __FILE__;
-		$this->basename     = plugin_basename( $this->file );
-		$this->plugin_dir   = plugin_dir_path( $this->file );
-		$this->plugin_url   = set_url_scheme( plugin_dir_url ( $this->file ), is_ssl() ? 'https' : 'http' );
-		$this->lang_dir     = trailingslashit( $this->plugin_dir . 'languages' );
-		$this->domain       = 'wp-job-manager-locations';
 
-		$files = array(
-			'includes/class-taxonomy.php',
-			'includes/class-template.php',
-			'includes/class-widgets.php'
-		);
-
-		foreach ( $files as $file ) {
-			include_once( $this->plugin_dir . '/' . $file );
-		}
-
-		$this->taxonomy = new Astoundify_Job_Manager_Regions_Taxonomy;
-		$this->template = new Astoundify_Job_Manager_Regions_Template;
-
-		$this->setup_actions();
+		// Load Plugins.
+		add_action( 'plugins_loaded', array( $this, 'setup_actions' ) );
 	}
 
 	/**
@@ -76,8 +74,31 @@ class Astoundify_Job_Manager_Regions {
 	 *
 	 * @return void
 	 */
-	private function setup_actions() {
-		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
+	public function setup_actions() {
+
+		// Load language files.
+		load_plugin_textdomain( dirname( WPJMREGIONS_PLUGIN ), false, dirname( WPJMREGIONS_PLUGIN ) . '/languages/' );
+
+		// Includes.
+		$files = array(
+			'includes/class-taxonomy.php',
+			'includes/class-template.php',
+			'includes/class-widgets.php'
+		);
+		foreach ( $files as $file ) {
+			include_once( WPJMREGIONS_PATH . $file );
+		}
+		$this->taxonomy = new Astoundify_Job_Manager_Regions_Taxonomy;
+		$this->template = new Astoundify_Job_Manager_Regions_Template;
+
+
+
+
+
+
+
+
+
 
 		/* Job Manager */
 		add_filter( 'job_manager_settings', array( $this, 'job_manager_settings' ) );
