@@ -90,8 +90,9 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 			$atts[ 'selected_region' ] = absint( $_GET[ 'search_region' ] );
 		}
 
-		wp_dropdown_categories( apply_filters( 'job_manager_regions_dropdown_args', array(
+		job_manager_dropdown_categories( apply_filters( 'job_manager_regions_dropdown_args', array(
 			'show_option_all' => __( 'All Regions', 'wp-job-manager-locations' ),
+			'multiple' => false,
 			'hierarchical' => true,
 			'orderby' => 'name',
 			'taxonomy' => 'job_listing_region',
