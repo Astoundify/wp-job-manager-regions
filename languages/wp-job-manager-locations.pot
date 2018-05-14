@@ -1,15 +1,15 @@
-# Copyright (C) 2017 Astoundify
+# Copyright (C) 2018 Astoundify
 # This file is distributed under the same license as the Regions for WP Job Manager package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Regions for WP Job Manager 1.14.0\n"
+"Project-Id-Version: Regions for WP Job Manager 1.15.0\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/wp-job-manager-locations\n"
-"POT-Creation-Date: 2017-07-11 14:08:35+00:00\n"
+"POT-Creation-Date: 2018-05-14 14:40:00+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2018-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: grunt-wp-i18n1.0.0\n"
@@ -71,7 +71,7 @@ msgstr ""
 msgid "All Regions"
 msgstr ""
 
-#: includes/class-template.php:110
+#: includes/class-template.php:111
 msgid "Select Region"
 msgstr ""
 
