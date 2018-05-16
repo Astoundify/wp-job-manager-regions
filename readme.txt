@@ -6,7 +6,7 @@ Contributors: Astoundify
 Tags: job, job listing, job region
 Requires at least: 4.7.0
 Tested up to: 4.9.6
-Stable Tag: 1.15.0
+Stable Tag: 1.15.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -30,6 +30,10 @@ Astoundify has released two themes that are fully integrated with the WP Job Man
 == Frequently Asked Questions ==
 
 == Changelog ==
+
+= 1.15.1: May 16, 2018 =
+
+* Fix: Revert use `job_manager_dropdown_categories()` function instead of `wp_dropdown_categories()`.
 
 = 1.15.0: May 12, 2018 =
 
