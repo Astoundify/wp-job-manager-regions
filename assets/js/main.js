@@ -30,7 +30,7 @@
 					search_contains: true,
 				} );
 			} else {
-				$( '#job_region, #resume_region' ).select2( job_manager_select2_multiselect_args );
+				$( '#job_region, #resume_region' ).select2();
 			}
 		},
 
@@ -67,9 +67,9 @@
 					}
 				} else {
 					if ( ! wrapper ) {
-						$regions.select2( job_manager_select2_multiselect_args );
+						$regions.select2();
 					} else {
-						$regions.children( 'select' ).select2( job_manager_select2_multiselect_args );
+						$regions.children( 'select' ).select2();
 					}
 				}
 			});
