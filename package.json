@@ -1,6 +1,6 @@
 {
   "name": "wp-job-manager-regions",
-  "version": "1.15.1",
+  "version": "1.16.0",
   "description": "",
   "main": "Gruntfile.js",
   "dependencies": {
