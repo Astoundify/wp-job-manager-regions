@@ -25,9 +25,13 @@
 		},
 
 		addSubmission: function() {
-			$( '#job_region, #resume_region' ).chosen({
-				search_contains: true
-			});
+			if ( typeof chosen === "function" ) {
+				$( '#job_region, #resume_region' ).chosen( {
+					search_contains: true,
+				} );
+			} else {
+				$( '#job_region, #resume_region' ).select2( job_manager_select2_multiselect_args );
+			}
 		},
 
 		addRegions: function() {
@@ -55,10 +59,18 @@
 						search_contains: true
 				};
 
-				if ( ! wrapper ) {
-					$regions.chosen( args );
+				if ( typeof chosen === "function" ) {
+					if ( ! wrapper ) {
+						$regions.chosen( args );
+					} else {
+						$regions.children( 'select' ).chosen( args );
+					}
 				} else {
-					$regions.children( 'select' ).chosen( args );
+					if ( ! wrapper ) {
+						$regions.select2( job_manager_select2_multiselect_args );
+					} else {
+						$regions.children( 'select' ).select2( job_manager_select2_multiselect_args );
+					}
 				}
 			});
 		},
