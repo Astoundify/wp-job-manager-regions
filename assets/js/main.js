@@ -30,7 +30,13 @@
 					search_contains: true,
 				} );
 			} else {
-				$( '#job_region, #resume_region' ).select2();
+        if ( typeof job_manager_select2_args !== 'undefined' ) ) {
+          var select2_args = job_manager_select2_args;
+          select2_args['allowClear']              = true;
+          select2_args['minimumResultsForSearch'] = 10;
+
+          $( '#job_region, #resume_region' ).select2( select2_args );
+        }
 			}
 		},
 
@@ -66,11 +72,17 @@
 						$regions.children( 'select' ).chosen( args );
 					}
 				} else {
-					if ( ! wrapper ) {
-						$regions.select2();
-					} else {
-						$regions.children( 'select' ).select2();
-					}
+          if ( typeof job_manager_select2_args !== 'undefined' ) ) {
+            var select2_args = job_manager_select2_args;
+            select2_args['allowClear']              = true;
+            select2_args['minimumResultsForSearch'] = 10;
+
+            if ( ! wrapper ) {
+              $regions.select2( select2_args );
+            } else {
+              $regions.children( 'select' ).select2( select2_args );
+            }
+          }
 				}
 			});
 		},
