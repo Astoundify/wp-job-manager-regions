@@ -6,7 +6,7 @@ Contributors: Astoundify
 Tags: job, job listing, job region
 Requires at least: 4.7.0
 Tested up to: 5.0.3
-Stable Tag: 1.16.0
+Stable Tag: 1.17.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -30,6 +30,10 @@ Astoundify has released two themes that are fully integrated with the WP Job Man
 == Frequently Asked Questions ==
 
 == Changelog ==
+
+= 1.17.0: January 24, 2018 =
+
+* New: WP Job Manager 1.32.0 support.
 
 = 1.16.0: January 14, 2018 =
 
