@@ -9,10 +9,6 @@
 
 		init: function() {
 			this.bindEvents();
-
-			this.select2_args = job_manager_select2_args || {};
-			this.select2_args['allowClear']              = true;
-			this.select2_args['minimumResultsForSearch'] = 10;
 		},
 
 		bindEvents: function() {
@@ -20,6 +16,15 @@
 
 			this.cache.$document.on( 'ready', function() {
 				self.$forms = $( '.search_jobs' );
+
+				if ( typeof job_manager_select2_args === "undefined" ) {
+					this.select2_args = {};
+				} else {
+					this.select2_args = job_manager_select2_args;
+				}
+
+				this.select2_args['allowClear']              = true;
+				this.select2_args['minimumResultsForSearch'] = 10;
 
 				self.addSubmission();
 				self.addRegions();
