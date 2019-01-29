@@ -80,8 +80,8 @@ class Astoundify_Job_Manager_Regions {
         add_filter( 'job_feed_args', array( $this, 'job_feed_args' ) );
 
         /* Resumes */
-        // add_filter( 'resume_manager_settings', array( $this, 'resume_manager_settings' ) );
-        //
+        add_filter( 'resume_manager_settings', array( $this, 'resume_manager_settings' ) );
+
         // add_filter( 'resume_manager_output_resumes_defaults', array( $this, 'resume_manager_output_resumes_defaults' ) );
         // add_filter( 'resume_manager_get_resumes', array( $this, 'resume_manager_get_resumes' ), 10, 2 );
         // add_filter( 'resume_manager_get_resumes_args', array( $this, 'job_manager_get_listings_args' ) );
@@ -124,14 +124,14 @@ class Astoundify_Job_Manager_Regions {
             'desc'     => __( 'Replace the entered address with the selected region on output.', 'wp-job-manager-locations' ),
             'type'     => 'checkbox'
         );
-        $settings[ 'resume_listings' ][1][] = array(
-            'name'     => 'resume_manager_regions_filter',
-            'std'      => '0',
-            'label'    => __( 'Search by Region', 'wp-job-manager-locations' ),
-            'cb_label' => __( 'Search by Region', 'wp-job-manager-locations' ),
-            'desc'     => __( 'Use a dropdown of defined regions instead of a text input. Disables radius search.', 'wp-job-manager-locations' ),
-            'type'     => 'checkbox'
-        );
+        // $settings[ 'resume_listings' ][1][] = array(
+        //     'name'     => 'resume_manager_regions_filter',
+        //     'std'      => '0',
+        //     'label'    => __( 'Search by Region', 'wp-job-manager-locations' ),
+        //     'cb_label' => __( 'Search by Region', 'wp-job-manager-locations' ),
+        //     'desc'     => __( 'Use a dropdown of defined regions instead of a text input. Disables radius search.', 'wp-job-manager-locations' ),
+        //     'type'     => 'checkbox'
+        // );
 
         return $settings;
     }
