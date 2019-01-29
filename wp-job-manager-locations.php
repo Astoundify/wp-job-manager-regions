@@ -80,11 +80,11 @@ class Astoundify_Job_Manager_Regions {
         add_filter( 'job_feed_args', array( $this, 'job_feed_args' ) );
 
         /* Resumes */
-        add_filter( 'resume_manager_settings', array( $this, 'resume_manager_settings' ) );
-
-        add_filter( 'resume_manager_output_resumes_defaults', array( $this, 'resume_manager_output_resumes_defaults' ) );
-        add_filter( 'resume_manager_get_resumes', array( $this, 'resume_manager_get_resumes' ), 10, 2 );
-        add_filter( 'resume_manager_get_resumes_args', array( $this, 'job_manager_get_listings_args' ) );
+        // add_filter( 'resume_manager_settings', array( $this, 'resume_manager_settings' ) );
+        //
+        // add_filter( 'resume_manager_output_resumes_defaults', array( $this, 'resume_manager_output_resumes_defaults' ) );
+        // add_filter( 'resume_manager_get_resumes', array( $this, 'resume_manager_get_resumes' ), 10, 2 );
+        // add_filter( 'resume_manager_get_resumes_args', array( $this, 'job_manager_get_listings_args' ) );
     }
 
     /**
