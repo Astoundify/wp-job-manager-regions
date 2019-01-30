@@ -31,12 +31,12 @@ Astoundify has released two themes that are fully integrated with the WP Job Man
 
 == Changelog ==
 
-= 1.17.3: January 28, 2018 =
+= 1.17.3: January 30, 2018 =
 
 * Fix: Output region instead of candidate location if setting is enabled.
 * Fix: Further WP Job Manager compatibility.
 
-= 1.17.1/2: January 28, 2018 =
+= 1.17.1/2: January 26, 2018 =
 
 * Fix: Ensure select2 arguments are always defined.
 
