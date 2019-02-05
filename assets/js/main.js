@@ -68,7 +68,7 @@
 						search_contains: true
 				};
 
-				if ( typeof chosen === "function" ) {
+				if ( $.isFunction($.fn.chosen) ) {
 					if ( ! wrapper ) {
 						$regions.chosen( args );
 					} else {
