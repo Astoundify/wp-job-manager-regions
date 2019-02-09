@@ -34,11 +34,11 @@
 		},
 
 		addSubmission: function() {
-			if ( typeof chosen === "function" ) {
+			if ( $.isFunction($.fn.chosen) ) {
 				$( '#job_region, #resume_region' ).chosen( {
 					search_contains: true,
 				} );
-			} else {
+			} else if( $.isFunction($.fn.select2) ) {
 				$( '#job_region, #resume_region' ).select2( this.select2_args );
 			}
 		},
@@ -68,7 +68,7 @@
 						search_contains: true
 				};
 
-				if ( typeof chosen === "function" ) {
+				if ( $.isFunction($.fn.chosen) ) {
 					if ( ! wrapper ) {
 						$regions.chosen( args );
 					} else {
