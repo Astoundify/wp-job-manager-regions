@@ -6,7 +6,7 @@ Contributors: Astoundify
 Tags: job, job listing, job region
 Requires at least: 4.7.0
 Tested up to: 5.0.3
-Stable Tag: 1.17.3
+Stable Tag: 1.17.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -31,20 +31,24 @@ Astoundify has released two themes that are fully integrated with the WP Job Man
 
 == Changelog ==
 
-= 1.17.3: January 30, 2018 =
+= 1.17.4: February 14, 2019 =
+
+* Fix: Improve type checks for the Select2 library.
+
+= 1.17.3: January 30, 2019 =
 
 * Fix: Output region instead of candidate location if setting is enabled.
 * Fix: Further WP Job Manager compatibility.
 
-= 1.17.1/2: January 26, 2018 =
+= 1.17.1/2: January 26, 2019 =
 
 * Fix: Ensure select2 arguments are always defined.
 
-= 1.17.0: January 24, 2018 =
+= 1.17.0: January 24, 2019 =
 
 * New: WP Job Manager 1.32.0 support.
 
-= 1.16.0: January 14, 2018 =
+= 1.16.0: January 14, 2019 =
 
 * New: WP Job Manager 1.32.0 support.
 
