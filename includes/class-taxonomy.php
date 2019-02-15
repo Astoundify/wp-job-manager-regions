@@ -60,6 +60,7 @@ class Astoundify_Job_Manager_Regions_Taxonomy extends Astoundify_Job_Manager_Reg
 					'delete_terms' 		=> $admin_capability,
 					'assign_terms' 		=> $admin_capability,
 				),
+				'show_in_rest' 			=> true,
 				'rewrite' 				=> $job_rewrite,
 			)
 		);
@@ -94,6 +95,7 @@ class Astoundify_Job_Manager_Regions_Taxonomy extends Astoundify_Job_Manager_Reg
 					'delete_terms' 		=> $admin_capability,
 					'assign_terms' 		=> $admin_capability,
 				),
+				'show_in_rest' 			=> true,
 				'rewrite' 				=> $resume_rewrite,
 			)
 		);
