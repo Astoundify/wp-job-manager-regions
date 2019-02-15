@@ -34,6 +34,7 @@ Astoundify has released two themes that are fully integrated with the WP Job Man
 = 1.17.4: February 14, 2019 =
 
 * Fix: Improve type checks for the Select2 library.
+* Fix: Make the taxonomy available to REST Api, and now it's available in the new editor.
 
 = 1.17.3: January 30, 2019 =
 
