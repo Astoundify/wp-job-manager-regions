@@ -50,7 +50,7 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 			wp_enqueue_style( 'chosen' );
 		}
 
-		wp_enqueue_script( 'job-regions', wp_job_manager_regions()->plugin_url . 'assets/js/main.js', array( 'jquery' ), 20190128, true );
+		wp_enqueue_script( 'job-regions', wp_job_manager_regions()->plugin_url . 'assets/js/main.min.js', array( 'jquery' ), 20190128, true );
 	}
 
 	public function submit_resume_form_fields_get_resume_data( $fields, $job ) {
