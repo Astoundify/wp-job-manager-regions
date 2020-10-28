@@ -35,7 +35,7 @@
 
 		addSubmission: function() {
 			if ( $.isFunction($.fn.chosen) ) {
-				$( '#resume_region' ).chosen({
+				$( '#job_region, #resume_region' ).chosen( {
 					search_contains: true,
 				} );
 			} else if( $.isFunction($.fn.select2) ) {
