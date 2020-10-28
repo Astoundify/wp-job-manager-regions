@@ -4,13 +4,18 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg : grunt.file.readJSON( 'package.json' ),
 		
+		watch: {
+			scripts: {
+				files: ['assets/js/*.js'],
+				tasks: ['uglify'],						
+			}			
+		},	
 		uglify : {
 			task1: {
 				src: 'assets/js/main.js',
 				dest: 'assets/js/main.min.js'
 			}			
-		},
-		
+		},		
 		makepot: {
 			reviews: {
 				options: {
@@ -53,6 +58,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks( 'grunt-wp-i18n' );
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 	grunt.loadNpmTasks( 'grunt-checktextdomain' );
+	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	grunt.registerTask( 'pot', [ 'makepot' ] );
 };

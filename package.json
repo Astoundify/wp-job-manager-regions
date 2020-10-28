@@ -8,6 +8,7 @@
     "grunt-checktextdomain": "^1.0.1",
     "grunt-cli": "^1.2.0",
     "grunt-contrib-uglify": "^5.0.0",
+    "grunt-contrib-watch": "^1.1.0",
     "grunt-wp-i18n": "^1.0.0"
   },
   "scripts": {
