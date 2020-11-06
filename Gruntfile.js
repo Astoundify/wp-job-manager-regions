@@ -11,7 +11,7 @@ module.exports = function(grunt) {
 			}			
 		},	
 		uglify : {
-			task1: {
+			assets_js: {
 				src: 'assets/js/main.js',
 				dest: 'assets/js/main.min.js'
 			}			
