@@ -34,6 +34,7 @@ Astoundify has released two themes that are fully integrated with the WP Job Man
 = 1.17.5: Oct 27, 2020 =
 
 * Fix: Minify JS file.
+* New: Regions settings implementation for resumes.
 * Update: Compatibility check with latest WordPress v5.5.1.
 * Update: Compatibility check with Latest WP Job Manager v1.34.3.
 * Update: Compatibility check with the latest PHP v7.4.10.
