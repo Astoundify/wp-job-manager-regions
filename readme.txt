@@ -6,7 +6,7 @@ Contributors: Astoundify
 Tags: job, job listing, job region
 Requires at least: 4.7.0
 Tested up to: 5.5.1
-Stable Tag: 1.17.5
+Stable Tag: 1.17.7
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -31,7 +31,7 @@ Astoundify has released two themes that are fully integrated with the WP Job Man
 
 == Changelog ==
 
-= 1.17.5: Oct 27, 2020 =
+= 1.17.7: Oct 27, 2020 =
 
 * Fix: Minify JS file.
 * New: Regions settings implementation for resumes.
