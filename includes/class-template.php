@@ -43,20 +43,20 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 	 */
 	public function wp_enqueue_scripts() {
 		$deps = array( 'jquery' );
+		if(function_exists('WPJM')){
+			$wpjm = WPJM();
+			if ( method_exists( $wpjm, 'register_select2_assets' ) ) {
+				$wpjm::register_select2_assets();
 
-		$wpjm = WPJM();
+				wp_enqueue_script( 'select2' );
+				wp_enqueue_style( 'select2' );
+			} else {
+				wp_enqueue_script( 'chosen' );
+				wp_enqueue_style( 'chosen' );
+			}
 
-		if ( method_exists( $wpjm, 'register_select2_assets' ) ) {
-			$wpjm::register_select2_assets();
-
-			wp_enqueue_script( 'select2' );
-			wp_enqueue_style( 'select2' );
-		} else {
-			wp_enqueue_script( 'chosen' );
-			wp_enqueue_style( 'chosen' );
+			wp_enqueue_script( 'job-regions', wp_job_manager_regions()->plugin_url . 'assets/js/main.min.js', array( 'jquery' ), 20190128, true );
 		}
-
-		wp_enqueue_script( 'job-regions', wp_job_manager_regions()->plugin_url . 'assets/js/main.min.js', array( 'jquery' ), 20190128, true );
 	}
 
 	public function submit_resume_form_fields_get_resume_data( $fields, $job ) {
