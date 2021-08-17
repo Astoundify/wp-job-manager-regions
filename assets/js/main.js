@@ -133,10 +133,13 @@
 			});
 		},
 
-		addSubmission: function() {				
-			$( '#job_region, #resume_region' ).chosen({
-				search_contains: true
-			});			
+		addSubmission: function() {		
+			var filter_id = $( '#job_region, #resume_region' );
+			if(filter_id.length){		 
+				filter_id.chosen({
+					search_contains: true
+				});			
+			}		
 		},
 
 		addRegions: function() {
