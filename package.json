@@ -4,7 +4,7 @@
   "description": "",
   "main": "Gruntfile.js",
   "dependencies": {
-    "grunt": "^1.4.1",
+    "grunt": "^1.5.2",
     "grunt-checktextdomain": "^1.0.1",
     "grunt-cli": "^1.4.3",
     "grunt-contrib-uglify": "^5.0.1",
