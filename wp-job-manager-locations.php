@@ -5,7 +5,7 @@
  * Description: Create predefined regions/locations that job submissions can associate themselves with.
  * Author:      Astoundify
  * Author URI:  http://astoundify.com
- * Version:     1.18.3
+ * Version:     1.18.4
  * Text Domain: wp-job-manager-locations
  * Domain Path: /languages
  */
@@ -152,7 +152,10 @@ class Astoundify_Job_Manager_Regions {
      * we can preselect the dropdown value. This is needed when filtering by region.
      */
     public function job_manager_output_jobs_defaults( $defaults ) {
-        $defaults[ 'selected_region' ] = '';
+        // Don't set selected_region on category or type archives to avoid conflicts
+        if ( ! is_tax( 'job_listing_category' ) && ! is_tax( 'job_listing_type' ) ) {
+            $defaults[ 'selected_region' ] = '';
+        }
 
         if ( is_tax( 'job_listing_region' ) ) {
             $type = get_queried_object();
@@ -192,7 +195,7 @@ class Astoundify_Job_Manager_Regions {
 
             parse_str( $_REQUEST[ 'form_data' ], $params );
 
-            if ( isset( $params[ 'search_region' ] ) && 0 != $params[ 'search_region' ] ) {
+            if ( isset( $params[ 'search_region' ] ) && 0 != $params[ 'search_region' ] && '' != $params[ 'search_region' ] ) {
                 $region = $params[ 'search_region' ];
 
                 if ( is_int( $region ) ) {
@@ -211,7 +214,7 @@ class Astoundify_Job_Manager_Regions {
                 add_filter( 'job_manager_get_listings_custom_filter_rss_args', array( $this, 'custom_filter_rss' ) );
             }
 
-        } elseif ( isset( $_GET[ 'selected_region' ] ) ) {
+        } elseif ( isset( $_GET[ 'selected_region' ] ) && $_GET[ 'selected_region' ] !== '' && ! is_tax( 'job_listing_category' ) && ! is_tax( 'job_listing_type' ) ) {
 
             $region = $_GET[ 'selected_region' ];
 

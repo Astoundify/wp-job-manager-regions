@@ -6,7 +6,7 @@ Contributors: Astoundify
 Tags: job, job listing, job region
 Requires at least: 4.7.0
 Tested up to: 6.3
-Stable Tag: 1.18.3
+Stable Tag: 1.18.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -56,7 +56,12 @@ If you like this plugin, consider exploring our other themes and plugins:
 
 == Changelog ==
 
-= 1.18.3: August 22, 2023 =
+= 1.18.4 : November 17, 2025 =
+
+* Fix: Conflict with Job Listing Category.
+* Update: Compatibility check with latest WordPress v6.8.
+
+= 1.18.3: August 25, 2023 =
 
 * Update: Compatibility check with latest WordPress v6.3.
 * Update: Compatibility check with Latest WP Job Manager v1.41.0.
