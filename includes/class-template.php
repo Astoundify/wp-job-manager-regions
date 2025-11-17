@@ -210,6 +210,11 @@ class Astoundify_Job_Manager_Regions_Template extends Astoundify_Job_Manager_Reg
 	 * call still only looks in that area.
 	 */
 	public function tax_archive_field( $atts ) {
+		// Don't add region field on category or type archives to avoid conflicts
+		if ( is_tax( 'job_listing_category' ) || is_tax( 'job_listing_type' ) ) {
+			return;
+		}
+
 		if ( ( ! isset( $atts[ 'selected_region' ] ) || '' == $atts[ 'selected_region' ] ) && isset( $_GET[ 'search_region' ] ) ) {
 			$atts[ 'selected_region' ] = absint( $_GET[ 'search_region' ] );
 		}
